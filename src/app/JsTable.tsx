@@ -113,14 +113,16 @@ const JsTable: FC<JsTableProps> = ({
 
                     <tbody>
                     {(data.map((item, rowIndex) => (
-                        <tr key={"r_"+rowIndex}>
+                        <tr key={"r_"+rowIndex} onClick={()=>onRowClick?.(item.id)}>
                             {header.some(h => h.key === 'checker')  &&
                                 <td
                                     className={`text-center border-deepGray border-r border-b`}
+                                    onMouseDown={(e) => e.stopPropagation()}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleCheckboxClick(item.id);
-                                }}>
+                                    }}
+                                >
                                     <input
                                         type="checkbox"
                                         checked={checked.includes(item.id)}

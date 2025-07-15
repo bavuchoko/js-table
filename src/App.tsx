@@ -55,6 +55,7 @@ function App() {
                         }}
                         resizable={true}
                         draggable={true}
+                        onRowClick={v=>console.log('id:', v)}
                         onResizeWidth={v=>console.log('width:', v)}
                         onPageChange={v=>console.log('page:', v)}
                     />
