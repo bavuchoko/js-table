@@ -3,6 +3,7 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      borderRadius:{},
       colors: {
         deepGray : `#b3b3b3`,
         th : `#e5e5e5`,
