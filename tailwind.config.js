@@ -16,6 +16,8 @@ module.exports = {
       colors: {
         deepGray : `#b3b3b3`,
         th : `#e5e5e5`,
+        hover:`#ececec`,
+        clicked:`rgba(209, 234, 255, 0.73)`,
       }
     },
   },

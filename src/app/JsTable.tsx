@@ -47,6 +47,7 @@ const JsTable: FC<JsTableProps> = ({
 
     const [hiddens, setHiddens] = useState(setting?.hidden??[]);
 
+    const [clicked, setClicked] = useState<number | null>(null);
 
 
     return (
@@ -60,7 +61,7 @@ const JsTable: FC<JsTableProps> = ({
                 {data?.length > 0 ?
                     <table className={`bg-white`}>
                         <thead>
-                        <tr>
+                        <tr >
                             {header.some(h => h.key === 'checker') &&
                                 <th
                                     className={`border-deepGray border-r border-b bg-th`}
@@ -125,7 +126,10 @@ const JsTable: FC<JsTableProps> = ({
 
                         <tbody>
                         {(data.map((item, rowIndex) => (
-                            <tr key={"r_" + rowIndex} onClick={() => onRowClick?.(item.id)}>
+                            <tr key={"r_" + rowIndex} className={`hover:bg-hover ${clicked===item.id && '!bg-clicked'}`} onClick={() =>{
+                                onRowClick?.(item.id)
+                                setClicked(item.id)
+                            } }>
                                 {header.some(h => h.key === 'checker') &&
                                     <td
                                         className={`text-center border-deepGray border-r border-b`}
