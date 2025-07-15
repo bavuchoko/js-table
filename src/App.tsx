@@ -5,9 +5,9 @@ import JsTable from "./app/JsTable";
 function App() {
     
     const header =[
-        {key:'checker', label: '', style: {fontSize: 12}},
-        {key:'no', label: 'no.', style: {fontSize: 12}},
-        {key:'name', label: '이름', style: {fontSize: 12, width:'200px'}},
+        {key:'checker'},
+        {key:'no', },
+        {key:'name', label: '이름', style: {width:'200px'}},
         {key:'title', label: '제목', style: {fontSize: 12}},
         {key:'createdBy.name', label: '등록자', style: {fontSize: 12}},
     ]
@@ -52,6 +52,7 @@ function App() {
                             sort:['name'],
                             desc:'asc'
                         }}
+
                         theme="dot"
                         usePagination
                         onHeaderMove={v =>{console.log('order:', v)}}

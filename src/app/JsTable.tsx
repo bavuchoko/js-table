@@ -59,13 +59,13 @@ const JsTable: FC<JsTableProps> = ({
             <div className={`no-scroll`} style={{height:`calc(100% - ${usePagination ? '31px' : '0px' } )`, overflowY:'auto' }}>
 
                 {data?.length > 0 ?
-                    <table className={`bg-white`}>
+                    <table className={`bg-white`} style={style?.body}>
                         <thead>
                         <tr >
                             {header.some(h => h.key === 'checker') &&
                                 <th
                                     className={`border-deepGray border-r border-b bg-th`}
-                                    style={{width: '40px', maxWidth: '40px', position: 'sticky', top: 0, zIndex: "1"}}
+                                    style={{width: '40px', maxWidth: '40px', position: 'sticky', top: 0, zIndex: "1", ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
                                 >
                                     <input type="checkbox"
@@ -83,7 +83,8 @@ const JsTable: FC<JsTableProps> = ({
                                         textAlign: 'center',
                                         position: 'sticky',
                                         top: 0,
-                                        zIndex: "1"
+                                        zIndex: "1",
+                                        ...style?.header
                                     }}
                                 >
                                     <button>No</button>
@@ -101,6 +102,7 @@ const JsTable: FC<JsTableProps> = ({
                                             position: 'sticky',
                                             top: 0,
                                             zIndex: '1',
+                                            ...style?.header
                                         }}
                                     >
                                         <div
@@ -126,7 +128,7 @@ const JsTable: FC<JsTableProps> = ({
 
                         <tbody>
                         {(data.map((item, rowIndex) => (
-                            <tr key={"r_" + rowIndex} className={`hover:bg-hover ${clicked===item.id && '!bg-clicked'}`} onClick={() =>{
+                            <tr key={"r_" + rowIndex} className={`hover-table-row hover:bg-hover ${clicked===item.id && '!bg-clicked'}`} onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
@@ -162,7 +164,8 @@ const JsTable: FC<JsTableProps> = ({
                                 {visibleHeaders.map((h, i) => (
                                     <td
                                         key={`c_` + i}
-                                        className={`border-deepGray border-r border-b indent-2`} style={h.style}>
+                                        className={`border-deepGray border-r border-b indent-2`}
+                                        style={{ fontSize: style?.body.fontSize ?? '12px'}} >
                                         <button className={`truncate`}>
                                             {getNestedValue(item, h.key)}
                                         </button>

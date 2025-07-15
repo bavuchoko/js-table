@@ -10,7 +10,7 @@ export type JsTableProps ={
     page?: Page;
     usePagination?:boolean | PaginationPosition;
     theme?: boolean | Theme;
-    style?: React.CSSProperties;
+    style?: Style;
     onHeaderClick?: (event: React.MouseEvent) => void;
     onHeaderMove?: (newOrder: string[]) => void;
     onResizeWidth?: (newOrder: number[]) => void;
@@ -19,10 +19,14 @@ export type JsTableProps ={
     resizable?: boolean;
     draggable?: boolean;
 }
+export type Style = {
+    header:  React.CSSProperties;
+    body:  React.CSSProperties;
+};
 
 export type Header = {
     key: string;
-    label: string;
+    label?: string;
     style?: React.CSSProperties;
 };
 export type Setting = {
