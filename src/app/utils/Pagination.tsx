@@ -6,10 +6,11 @@ import Righter from "./Righter";
 
 interface PaginationProps {
     page: Page;
+    direction?:boolean | string;
     onPageChange?: (clickPage: number) => void;
 }
 
-const Pagination: FC<PaginationProps > = ({ page, onPageChange }) =>{
+const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction }) =>{
 
     const [inputValue, setInputValue] = useState((page.currentPage ?? 0) + 1);
 
@@ -38,7 +39,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange }) =>{
 
 
     return(
-        <div className={`h-[30px]  border-t border-deepGray p-[6px]  line-h-20`}>
+        <div className={`h-[30px]  ${ direction && direction !=='top' ? 'border-t' : (direction ==='top' ? 'border-b':'') } bg-gray-50  border-deepGray p-[6px]  line-h-20`}>
             <div className={`flex`}>
                 <Lefter onClick={()=>handleButtonClick( inputValue - 1)} />
                 <div className={`flex mx-1.5`}>

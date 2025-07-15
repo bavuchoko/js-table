@@ -52,6 +52,7 @@ function App() {
                             sort:['name'],
                             desc:'asc'
                         }}
+                        usePagination
                         onHeaderMove={v =>{console.log('order:', v)}}
                         resizable={true}
                         draggable={true}

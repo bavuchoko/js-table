@@ -1,10 +1,11 @@
 import React from "react";
-
+type PaginationPosition = 'top' | 'bottom';
 export type JsTableProps ={
     header: Header[];
     setting?: Setting;
     data: any[]
-    page?: Page
+    page?: Page;
+    usePagination?:boolean | PaginationPosition;
     theme?: String;
     style?: React.CSSProperties;
     onHeaderClick?: (event: React.MouseEvent) => void;
