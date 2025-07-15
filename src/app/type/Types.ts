@@ -10,7 +10,7 @@ export type JsTableProps ={
     onHeaderClick?: (event: React.MouseEvent) => void;
     onHeaderUpdate?: (newOrder: string[]) => void;
     onRowClick?: (event: React.MouseEvent) => void;
-    onPageChange?: (event: React.MouseEvent) => void;
+    onPageChange?: (clickPage: number) => void;
     resizable?: boolean;
     draggable?: boolean;
 }

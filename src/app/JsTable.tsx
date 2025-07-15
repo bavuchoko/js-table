@@ -153,7 +153,7 @@ const JsTable: FC<JsTableProps> = ({
             </div>
 
             {page &&
-               <Pagination page={page}/>
+               <Pagination page={page} onPageChange={onPageChange}/>
             }
         </div>
     );

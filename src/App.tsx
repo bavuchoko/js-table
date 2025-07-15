@@ -44,10 +44,10 @@ function App() {
                     <JsTable
                         header={header}
                         data={data}
-                        onHeaderUpdate={(v =>{console.log(v)})}
+                        onHeaderUpdate={v =>{console.log(v)}}
                         page={{
                             size:20,
-                            currentPage:1,
+                            currentPage:0,
                             totalPages:50,
                             totalElements:1000,
                             sort:['name'],
@@ -55,6 +55,7 @@ function App() {
                         }}
                         resizable={false}
                         draggable={false}
+                        onPageChange={v=>console.log(`v : ${v}`)}
                     />
                 </div>
 
