@@ -12,8 +12,8 @@ const JsTable: FC<JsTableProps> = ({
                                        data,
                                        page = undefined,
                                        usePagination = undefined,
-                                       style = undefined,
                                        theme = undefined,
+                                       style = undefined,
                                        onHeaderMove = undefined,
                                        onResizeWidth = undefined,
                                        onHeaderClick = undefined,
@@ -50,14 +50,14 @@ const JsTable: FC<JsTableProps> = ({
 
     return (
 
-        <div className={`w-full h-full border-deepGray border`}>
+        <div className={`w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-dots bg-dot' } `}>
             {( page && usePagination ) && usePagination=== 'top' &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
             }
             <div className={`no-scroll`} style={{height:`calc(100% - ${usePagination ? '31px' : '0px' } )`, overflowY:'auto' }}>
 
             {data?.length > 0 ?
-                <table >
+                <table  className={`bg-white`}>
                     <thead>
                         <tr>
                         {header.some(h => h.key === 'checker')  &&

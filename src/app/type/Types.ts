@@ -1,12 +1,15 @@
 import React from "react";
 type PaginationPosition = 'top' | 'bottom';
+type Theme = 'dot' | 'normal';
+
+
 export type JsTableProps ={
     header: Header[];
     setting?: Setting;
     data: any[]
     page?: Page;
     usePagination?:boolean | PaginationPosition;
-    theme?: String;
+    theme?: boolean | Theme;
     style?: React.CSSProperties;
     onHeaderClick?: (event: React.MouseEvent) => void;
     onHeaderMove?: (newOrder: string[]) => void;
