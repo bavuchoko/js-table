@@ -7,7 +7,7 @@ function App() {
     const header =[
         {key:'checker', label: '', style: {fontSize: 12}},
         {key:'no', label: 'no.', style: {fontSize: 12}},
-        {key:'name', label: '이름', style: {fontSize: 12}},
+        {key:'name', label: '이름', style: {fontSize: 12, width:'200px'}},
         {key:'title', label: '제목', style: {fontSize: 12}},
         {key:'createdBy.name', label: '등록자', style: {fontSize: 12}},
     ]
@@ -44,7 +44,7 @@ function App() {
                     <JsTable
                         header={header}
                         data={data}
-                        onHeaderUpdate={v =>{console.log(v)}}
+                        onHeaderUpdate={v =>{console.log('order:', v)}}
                         page={{
                             size:20,
                             currentPage:0,
@@ -53,9 +53,10 @@ function App() {
                             sort:['name'],
                             desc:'asc'
                         }}
-                        resizable={false}
-                        draggable={false}
-                        onPageChange={v=>console.log(`v : ${v}`)}
+                        resizable={true}
+                        draggable={true}
+                        onResizeWidth={v=>console.log('width:', v)}
+                        onPageChange={v=>console.log('page:', v)}
                     />
                 </div>
 

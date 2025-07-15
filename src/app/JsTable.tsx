@@ -14,6 +14,7 @@ const JsTable: FC<JsTableProps> = ({
                                        style = undefined,
                                        theme = undefined,
                                        onHeaderUpdate = undefined,
+                                       onResizeWidth = undefined,
                                        onHeaderClick = undefined,
                                        onRowClick = undefined,
                                        onPageChange = undefined,
@@ -24,7 +25,14 @@ const JsTable: FC<JsTableProps> = ({
 
     const [order, setOrder] = useState<string[]>(setting?.order ?? header.filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
     const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked, getNestedValue } = useDataHandler(data);
-    const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(resizable, header);
+    const visibleHeaders = useHeaderHandler(header, order, setting?.hidden ?? []);
+    const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(
+        resizable,
+        visibleHeaders,
+        (widths) => {
+            setColumnWidths(widths);
+            onResizeWidth?.(widths);
+        });
     const { handleDragStart, allowDrop, handleDragOver } = useDragHandler(
         draggable,
         order,
@@ -36,7 +44,6 @@ const JsTable: FC<JsTableProps> = ({
     );
 
     const [hiddens, setHiddens] = useState(setting?.hidden??[]);
-    const visibleHeaders = useHeaderHandler(header, order, setting?.hidden ?? []);
 
 
 

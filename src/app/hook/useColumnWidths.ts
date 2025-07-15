@@ -4,10 +4,27 @@ import { Header } from "../type/Types";
 
 type ColumnWidths = number[];
 
-export const useColumnWidths = (resizable:boolean=false, headers: Header[]) => {
-    const [columnWidths, setColumnWidths] = useState<ColumnWidths>(
-        new Array(headers.length).fill(100)
-    );
+export const useColumnWidths = (
+    resizable:boolean=false,
+    headers: Header[],
+    onResizeWidth?: (widths: number[]) => void,
+    ) => {
+
+    const getInitialWidths = (headers: Header[]): ColumnWidths => {
+        return headers.map((header) => {
+            const width = header.style?.width;
+            if (typeof width === "number") return width;
+            if (typeof width === "string") {
+                const parsed = parseInt(width, 10);
+                return isNaN(parsed) ? 100 : parsed;
+            }
+            return 100;
+        });
+    };
+    const initialWidths = getInitialWidths(headers);
+
+    const columnWidthsRef = useRef<ColumnWidths>(initialWidths);
+    const [columnWidths, setColumnWidths] = useState<ColumnWidths>(initialWidths);
 
     const resizingColumn = useRef<number | null>(null);
     const startX = useRef<number>(0);
@@ -22,18 +39,20 @@ export const useColumnWidths = (resizable:boolean=false, headers: Header[]) => {
         setColumnWidths((prevWidths) => {
             const newWidths = [...prevWidths];
             newWidths[columnIndex] = Math.max(50, prevWidths[columnIndex] + deltaX);
+            columnWidthsRef.current = newWidths;
             return newWidths;
         });
 
         startX.current = event.clientX;
-    }, []);
+    }, [resizable]);
 
     const handleMouseUp = useCallback(() => {
         if (!resizable) return;
         resizingColumn.current = null;
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
-    }, [handleMouseMove]);
+        onResizeWidth?.(columnWidthsRef.current);
+    }, [resizable, handleMouseMove, onResizeWidth]);
 
     const handleMouseDown = useCallback(
         (event: React.MouseEvent<HTMLDivElement>, colIndex: number) => {
@@ -44,7 +63,7 @@ export const useColumnWidths = (resizable:boolean=false, headers: Header[]) => {
             document.addEventListener("mousemove", handleMouseMove);
             document.addEventListener("mouseup", handleMouseUp);
         },
-        [handleMouseMove, handleMouseUp]
+        [resizable, handleMouseMove, handleMouseUp]
     );
 
     return { columnWidths, setColumnWidths, handleMouseDown };
