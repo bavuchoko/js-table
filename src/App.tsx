@@ -44,7 +44,6 @@ function App() {
                     <JsTable
                         header={header}
                         data={data}
-                        onHeaderUpdate={v =>{console.log('order:', v)}}
                         page={{
                             size:20,
                             currentPage:0,
@@ -53,6 +52,7 @@ function App() {
                             sort:['name'],
                             desc:'asc'
                         }}
+                        onHeaderMove={v =>{console.log('order:', v)}}
                         resizable={true}
                         draggable={true}
                         onRowClick={v=>console.log('id:', v)}

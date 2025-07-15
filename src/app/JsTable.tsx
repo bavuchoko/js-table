@@ -13,7 +13,7 @@ const JsTable: FC<JsTableProps> = ({
                                        page = undefined,
                                        style = undefined,
                                        theme = undefined,
-                                       onHeaderUpdate = undefined,
+                                       onHeaderMove = undefined,
                                        onResizeWidth = undefined,
                                        onHeaderClick = undefined,
                                        onRowClick = undefined,
@@ -38,7 +38,7 @@ const JsTable: FC<JsTableProps> = ({
         order,
         (newOrder) => {
             setOrder(newOrder);
-            onHeaderUpdate?.(newOrder);
+            onHeaderMove?.(newOrder);
         },
         [columnWidths, setColumnWidths]
     );
