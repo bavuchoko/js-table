@@ -4,7 +4,7 @@ import { Header } from "../type/Types";
 
 type ColumnWidths = number[];
 
-export const useColumnWidths = (headers: Header[]) => {
+export const useColumnWidths = (resizable:boolean=false, headers: Header[]) => {
     const [columnWidths, setColumnWidths] = useState<ColumnWidths>(
         new Array(headers.length).fill(100)
     );
@@ -13,6 +13,7 @@ export const useColumnWidths = (headers: Header[]) => {
     const startX = useRef<number>(0);
 
     const handleMouseMove = useCallback((event: MouseEvent) => {
+        if (!resizable) return;
         if (resizingColumn.current === null) return;
 
         const deltaX = event.clientX - startX.current;
@@ -28,6 +29,7 @@ export const useColumnWidths = (headers: Header[]) => {
     }, []);
 
     const handleMouseUp = useCallback(() => {
+        if (!resizable) return;
         resizingColumn.current = null;
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
@@ -35,6 +37,7 @@ export const useColumnWidths = (headers: Header[]) => {
 
     const handleMouseDown = useCallback(
         (event: React.MouseEvent<HTMLDivElement>, colIndex: number) => {
+            if (!resizable) return;
             startX.current = event.clientX;
             resizingColumn.current = colIndex;
 

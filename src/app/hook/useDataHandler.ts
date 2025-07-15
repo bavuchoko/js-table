@@ -24,11 +24,23 @@ export function useDataHandler(data: any[]) {
         return data.every(item => checked.includes(item.id));
     }, [checked, data]);
 
+
+    const getNestedValue =(obj: any, path: String)=> {
+        return path.split('.').reduce((acc, part) => {
+            if (Array.isArray(acc)) {
+                return acc.map(item => item[part]).join(', ');
+            }
+            return acc && acc[part];
+        }, obj);
+    }
+
+
     return {
         checked,
         handleCheckboxClick,
         handleHeaderCheckboxClick,
         isThisPageAllChecked,
-        setChecked
+        setChecked,
+        getNestedValue
     };
 }

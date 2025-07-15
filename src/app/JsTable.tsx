@@ -1,11 +1,10 @@
 import {JsTableProps} from "./type/Types";
 import {FC, useState} from "react";
-import {getNestedValue} from "./utils/dataUtils";
 import {useDataHandler} from "./hook/useDataHandler";
 import {useDragHandler} from "./hook/useDragHandler";
 import {useHeaderHandler} from "./hook/useHeaderHandler";
 import {useColumnWidths} from "./hook/useColumnWidths";
-import Pagination from "./Pagination";
+import Pagination from "./utils/Pagination";
 
 const JsTable: FC<JsTableProps> = ({
                                        header,
@@ -18,13 +17,16 @@ const JsTable: FC<JsTableProps> = ({
                                        onHeaderClick = undefined,
                                        onRowClick = undefined,
                                        onPageChange = undefined,
+                                       resizable =false,
+                                       draggable =false
                                    }) => {
 
 
     const [order, setOrder] = useState<string[]>(setting?.order ?? header.filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
-    const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked } = useDataHandler(data);
-    const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(header);
+    const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked, getNestedValue } = useDataHandler(data);
+    const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(resizable, header);
     const { handleDragStart, allowDrop, handleDragOver } = useDragHandler(
+        draggable,
         order,
         (newOrder) => {
             setOrder(newOrder);
@@ -41,7 +43,7 @@ const JsTable: FC<JsTableProps> = ({
     return (
 
         <div className={`w-full h-full border-deepGray border`}>
-            <div className={`no-scroll`} style={{height:`calc(100% - ${page ? '35px' : '0px' } )`, overflowY:'auto' }}>
+            <div className={`no-scroll`} style={{height:`calc(100% - ${page ? '31px' : '0px' } )`, overflowY:'auto' }}>
 
             {data?.length > 0 ?
                 <table >
@@ -83,17 +85,20 @@ const JsTable: FC<JsTableProps> = ({
                                 >
                                     <div
                                         className={`inline-block cursor-pointer w-[calc(100%-5px)] text-left indent-2`}
-                                        draggable
+                                        draggable={draggable}
                                         onDragStart={(e) => handleDragStart(e, i)}
                                         onDragOver={allowDrop}
                                         onDrop={(e) => handleDragOver(e, i)}
                                     >
                                         {h.label}
                                     </div>
+
+                                    {resizable &&
                                     <div
                                         className="float-right w-[4px] min-h-[21px] h-full cursor-col-resize resize-handle text-gray-400"
                                         onMouseDown={(e) => handleMouseDown(e, i)}
                                     >|</div>
+                                    }
                                 </th>
                         ))}
                         </tr>
@@ -148,7 +153,7 @@ const JsTable: FC<JsTableProps> = ({
             </div>
 
             {page &&
-               <Pagination />
+               <Pagination page={page}/>
             }
         </div>
     );

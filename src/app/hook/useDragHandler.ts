@@ -2,6 +2,7 @@
 import { useState, useCallback } from "react";
 
 export function useDragHandler(
+    draggable:boolean =false,
     initialOrder: string[],
     onHeaderUpdate?: (newOrder: string[]) => void,
     columnWidthsState?: [number[], React.Dispatch<React.SetStateAction<number[]>>]
@@ -10,6 +11,7 @@ export function useDragHandler(
     const [columnWidths, setColumnWidths] = columnWidthsState || [[], () => {}];
 
     const handleDragStart = (e: React.DragEvent<HTMLElement>, index: number) => {
+        if (!draggable) return;
         const target = e.target as HTMLElement;
         if (target.classList.contains("resize-handle")) {
             e.preventDefault();
@@ -24,6 +26,7 @@ export function useDragHandler(
 
     const handleDragOver = useCallback(
         (e: React.DragEvent<HTMLDivElement>, columnIndex: number) => {
+            if (!draggable) return;
             e.preventDefault();
             const dragIndex = Number(e.dataTransfer.getData("columnIndex"));
             if (dragIndex !== columnIndex) {

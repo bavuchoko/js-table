@@ -41,14 +41,21 @@ function App() {
                 <div className={`w-[300px] bg-pink-50`}>aa</div>
 
                 <div className="w-[1200px] h-[500px] ">
-                    <JsTable header={header} data={data} onHeaderUpdate={(v =>{console.log(v)})} page={{
-                        size:20,
-                        currentPage:1,
-                        totalPages:50,
-                        totalElements:1000,
-                        sort:['name'],
-                        desc:'asc'
-                    }}/>
+                    <JsTable
+                        header={header}
+                        data={data}
+                        onHeaderUpdate={(v =>{console.log(v)})}
+                        page={{
+                            size:20,
+                            currentPage:1,
+                            totalPages:50,
+                            totalElements:1000,
+                            sort:['name'],
+                            desc:'asc'
+                        }}
+                        resizable={false}
+                        draggable={false}
+                    />
                 </div>
 
             </div>
