@@ -6,6 +6,9 @@ import {useHeaderHandler} from "./hook/useHeaderHandler";
 import {useColumnWidths} from "./hook/useColumnWidths";
 import Pagination from "./utils/Pagination";
 import Empty from '../app/resource/icon/empty.png'
+import {useSettingPop} from "./hook/useSettingPop";
+import {useCustomStyle} from "./hook/useCustomStyle";
+import SettingPop from "./utils/SettingPop";
 
 const JsTable: FC<JsTableProps> = ({
                                        header,
@@ -13,6 +16,7 @@ const JsTable: FC<JsTableProps> = ({
                                        data,
                                        page = undefined,
                                        usePagination = undefined,
+                                       useSetting =false,
                                        theme = undefined,
                                        style = undefined,
                                        onHeaderMove = undefined,
@@ -51,20 +55,29 @@ const JsTable: FC<JsTableProps> = ({
         [columnWidths, setColumnWidths]
     );
 
+    // hook : 세팅 팝업
+    const { isSettingOpen, openPopup, closePopup, togglePopup } = useSettingPop();
+
+    // hook : 로직에 관계없는 옵션값에 따른 스타일 변화 : 테마, 배경
+    const { hasPagination, heightStyle, themeClass } = useCustomStyle(usePagination, theme);
+
+    // 숨김요소
     const [hiddens, setHiddens] = useState(setting?.hidden??[]);
 
     //클릭요소 저장
     const [clicked, setClicked] = useState<number | null>(null);
 
-    // 페이지네이션 종류에 따라 테이블영역 높이 변경
-    const hasPagination = usePagination === true || usePagination === 'top' || usePagination === 'bottom';
-    const heightStyle = `calc(100% - ${hasPagination ? '31px' : '0px'})`;
-    
+
+
+
     return (
 
-        <div className={`relative w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-lightGray bg-dots bg-dot' } `}>
+        <div className={`relative w-full h-full border-deepGray border  ${themeClass} `}>
+
+            {isSettingOpen && <SettingPop /> }
+
             {data.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
-                <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
+                <Pagination page={page} onPageChange={onPageChange} direction={usePagination} toggleSetting={useSetting ? togglePopup : undefined}/>
             }
             <div className={`no-scroll`} style={{ height: heightStyle, overflowY: 'auto' }}>
 
@@ -144,7 +157,7 @@ const JsTable: FC<JsTableProps> = ({
                             } }>
                                 {header.some(h => h.key === 'checker') &&
                                     <td
-                                        className={`text-center border-deepGray border-r border-b`}
+                                        className={`text-center border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' }  `}
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -160,7 +173,7 @@ const JsTable: FC<JsTableProps> = ({
                                 }
                                 {header.some(h => h.key === 'no') &&
                                     <td
-                                        className={`border-deepGray border-r border-b`}
+                                        className={`border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' } `}
                                         style={{width: '50px', textAlign: 'center', fontSize: '13px'}}
                                     >
                                         <button> {page
@@ -174,14 +187,15 @@ const JsTable: FC<JsTableProps> = ({
                                 {visibleHeaders.map((h, i) => (
                                     <td
                                         key={`c_` + i}
-                                        className={`border-deepGray border-r border-b indent-2 cursor-pointer relative`}
-                                        style={{ fontSize: style?.body.fontSize ?? '12px'}} >
+                                        className={`border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' }  indent-2 cursor-pointer relative`}
+                                        style={{ fontSize: style?.body?.fontSize ?? '12px'}} >
                                             {h.renderer
-                                                ? (h.renderer(item))
+                                                ?  <div className={`absolute top-0 h-full w-full`}>{h.renderer(item)}</div>
                                                 : getNestedValue(item, h.key)
                                             }
                                     </td>
                                 ))}
+
                             </tr>
                         )))}
                         </tbody>
@@ -198,7 +212,7 @@ const JsTable: FC<JsTableProps> = ({
             </div>
 
             {data.length > 0 && (page && usePagination) && (usePagination === 'bottom' || usePagination === true) &&
-                <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
+                <Pagination page={page} onPageChange={onPageChange} direction={usePagination} toggleSetting={useSetting ? togglePopup : undefined}/>
             }
         </div>
     );

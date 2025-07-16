@@ -2,15 +2,16 @@ import {FC, useState} from "react";
 import {Page} from "../type/Types";
 import Lefter from "./Lefter";
 import Righter from "./Righter";
-
+import Setting from "../resource/icon/setting.png"
 
 interface PaginationProps {
     page: Page;
     direction?:boolean | string;
     onPageChange?: (clickPage: number) => void;
+    toggleSetting?: () => void;
 }
 
-const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction }) =>{
+const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggleSetting }) =>{
 
     const [inputValue, setInputValue] = useState((page.currentPage ?? 0) + 1);
 
@@ -59,9 +60,14 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction }) =>{
 
                 <Righter  onClick={()=>handleButtonClick( inputValue + 1)} />
 
+                {toggleSetting &&
+                <img src={Setting} className={`w-4 h-4 my-0.5 ml-5 active:scale-90 cursor-pointer`} onClick={toggleSetting}/>
+                }
+
                 <div className={`text-[13px] ml-auto mr-3 flex`}>
                     <p>total</p> <p className={`splice mx-2 border-l border-deepGray`}></p> <p>{page.totalElements}</p>
                 </div>
+
             </div>
         </div>
     )
