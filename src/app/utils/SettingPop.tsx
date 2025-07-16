@@ -94,10 +94,13 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                         }} />
                         <div
                             style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+                                display: 'flex',
+                                flexWrap:'wrap',
                                 gap: '0.75rem',
                                 backgroundColor: 'white',
+                                borderLeft:'1px solid #b3b3b3',
+                                marginLeft:'10px',
+                                paddingLeft:'10px'
                             }}
                         >
                             {elements.map(el => {
@@ -106,6 +109,7 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                                     <p
                                         key={el}
                                         style={{
+                                            whiteSpace: 'nowrap',
                                             position: 'relative',
                                             display: 'inline-block',
                                             textAlign: 'center',

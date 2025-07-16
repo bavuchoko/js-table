@@ -248,7 +248,7 @@ const JsTable: FC<JsTableProps> = ({
                                         style={{
                                             textAlign:'center',
                                             borderRight:'1px solid',
-                                            borderBottom:`${rowIndex < data.length -1 ? '1px solid' :'none' }`,
+                                            borderBottom:'1px solid',
                                             borderColor:'#b3b3b3',
                                         }}
                                         onMouseDown={(e) => e.stopPropagation()}
@@ -268,7 +268,7 @@ const JsTable: FC<JsTableProps> = ({
                                     <td
                                         style={{
                                             borderRight:'1px solid',
-                                            borderBottom: `${rowIndex < data.length -1 ? '1px solid' :'none' }`,
+                                            borderBottom: '1px solid',
                                             width: '50px',
                                             textAlign: 'center',
                                             borderColor:'#b3b3b3',
@@ -287,7 +287,7 @@ const JsTable: FC<JsTableProps> = ({
                                         key={`c_` + i}
                                         style={{
                                             borderRight:'1px solid',
-                                            borderBottom:`${rowIndex < data.length -1 ? '1px solid':'none'}`,
+                                            borderBottom: '1px solid',
                                             textIndent:'10px',
                                             cursor:'pointer',
                                             position:'relative',
