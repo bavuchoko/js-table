@@ -79,6 +79,8 @@ const JsTable: FC<JsTableProps> = ({
     //클릭요소 저장
     const [clicked, setClicked] = useState<number | null>(null);
 
+    //호버요소
+    const [hoveredRow, setHoveredRow] = useState<number | null>(null)
 
     return (
 
@@ -90,7 +92,7 @@ const JsTable: FC<JsTableProps> = ({
                 display:'inline-block',
                 width:'100%',
                 height:'100%',
-                borderColor:'var(--deepGray)',
+                borderColor:'#b3b3b3',
                 ...themeStyle
             }}
         >
@@ -118,12 +120,12 @@ const JsTable: FC<JsTableProps> = ({
                                     style={{
                                         borderRight: '1px solid',
                                         borderBottom: '1px solid',
-                                        background: 'var(--th)',
+                                        background: '#e5e5e5',
                                         width: '40px',
                                         maxWidth: '40px',
                                         position: 'sticky',
                                         top: 0,
-                                        borderColor: 'var(--deepGray)',
+                                        borderColor: '#b3b3b3',
                                         zIndex: "1",
                                         ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
@@ -139,14 +141,14 @@ const JsTable: FC<JsTableProps> = ({
                                     style={{
                                         borderRight: '1px solid',
                                         borderBottom: '1px solid',
-                                        background: 'var(--th)',
+                                        background: '#e5e5e5',
                                         width: '50px',
                                         fontSize: '12px',
                                         textAlign: 'center',
                                         position: 'sticky',
                                         top: 0,
                                         zIndex: "1",
-                                        borderColor: 'var(--deepGray)',
+                                        borderColor: '#b3b3b3',
                                         ...style?.header
                                     }}
                                 >
@@ -161,8 +163,8 @@ const JsTable: FC<JsTableProps> = ({
                                         style={{
                                             borderRight: '1px solid',
                                             borderBottom: '1px solid',
-                                            background: 'var(--th)',
-                                            borderColor: 'var(--deepGray)',
+                                            background: '#e5e5e5',
+                                            borderColor: '#b3b3b3',
                                             width: `${columnWidths[i]}px`,
                                             fontSize: '12px',
                                             position: 'sticky',
@@ -225,7 +227,19 @@ const JsTable: FC<JsTableProps> = ({
 
                         <tbody>
                         {(data.map((item, rowIndex) => (
-                            <tr key={"r_" + rowIndex} className={`hover-table-row ${clicked===item.id && 'bg-clicked'}`} onClick={() =>{
+                            <tr key={"r_" + rowIndex}
+                                onMouseEnter={() => setHoveredRow(item.id)}
+                                onMouseLeave={() => setHoveredRow(null)}
+                                style={{
+                                    background:
+                                        clicked === item.id
+                                            ? 'rgba(209, 234, 255, 0.73)'
+                                            : hoveredRow === item.id
+                                                ? '#ececec'
+                                                : '',
+                                }}
+
+                                className={`hover-table-row ${clicked===item.id && 'bg-clicked'}`} onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
@@ -235,7 +249,7 @@ const JsTable: FC<JsTableProps> = ({
                                             textAlign:'center',
                                             borderRight:'1px solid',
                                             borderBottom:`${rowIndex < data.length -1 ? '1px solid' :'none' }`,
-                                            borderColor:'var(--deepGray)',
+                                            borderColor:'#b3b3b3',
                                         }}
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => {
@@ -257,7 +271,7 @@ const JsTable: FC<JsTableProps> = ({
                                             borderBottom: `${rowIndex < data.length -1 ? '1px solid' :'none' }`,
                                             width: '50px',
                                             textAlign: 'center',
-                                            borderColor:'var(--deepGray)',
+                                            borderColor:'#b3b3b3',
                                             fontSize: '13px'
                                         }}
                                     >
@@ -277,7 +291,7 @@ const JsTable: FC<JsTableProps> = ({
                                             textIndent:'10px',
                                             cursor:'pointer',
                                             position:'relative',
-                                            borderColor:'var(--deepGray)',
+                                            borderColor:'#b3b3b3',
                                             fontSize: style?.body?.fontSize ?? '12px'
                                             }} >
                                             {h.renderer

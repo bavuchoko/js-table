@@ -11,7 +11,7 @@ const Lefter: FC<customProps> =({onClick})=>{
                 style={{
                     padding:'0',
                     borderRadius:'5px 0 0 5px',
-                    background:'var(--darkGray)',
+                    background:'#3f3e3e',
                     height:'18px',
                     marginTop:'1px',
                     width:'20px',

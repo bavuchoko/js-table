@@ -8,8 +8,8 @@ export function useCustomStyle(usePagination: boolean | 'top' | 'bottom' | undef
 
     const themeStyleMap: Record<string, React.CSSProperties> = {
         dot: {
-            background: 'var(--lightGray)',
-            backgroundImage: 'var(--dot)',
+            background: '#f3f3f3',
+            backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px)',
             backgroundSize: '10px 10px',
         }
     };

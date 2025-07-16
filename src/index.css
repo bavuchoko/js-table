@@ -36,7 +36,7 @@ p{
   --buble: #fffef7;
   --dot: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   --glass:rgba(224, 224, 224, 0.42)
-}ㅇ
+}
 .relative{
   position: relative;
 }
@@ -63,7 +63,7 @@ p{
   width: 1200px;
 }
 .hover-table-row:hover{
-  background: var(--hover);
+  background: #ececec;
 }
 .flex{
   display: flex;
@@ -101,7 +101,7 @@ p{
 }
 
 .bg-clicked{
-  background-color: var(--clicked) !important;
+  background-color: rgba(209, 234, 255, 0.73) !important;
 }
 
 .text-clicked {
