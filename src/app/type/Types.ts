@@ -1,5 +1,5 @@
 import React from "react";
-type PaginationPosition = 'top' | 'bottom' | 'flow' ;
+type PaginationPosition = 'top' | 'bottom' ;
 type Theme = 'dot' | 'normal';
 
 

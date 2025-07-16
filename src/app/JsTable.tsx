@@ -62,7 +62,7 @@ const JsTable: FC<JsTableProps> = ({
     
     return (
 
-        <div className={`w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-lightGray bg-dots bg-dot' } `}>
+        <div className={`relative w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-lightGray bg-dots bg-dot' } `}>
             {data.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
             }
