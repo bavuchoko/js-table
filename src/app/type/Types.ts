@@ -1,5 +1,5 @@
 import React from "react";
-type PaginationPosition = 'top' | 'bottom';
+type PaginationPosition = 'top' | 'bottom' | 'flow' ;
 type Theme = 'dot' | 'normal';
 
 
@@ -28,6 +28,7 @@ export type Header = {
     key: string;
     label?: string;
     style?: React.CSSProperties;
+    renderer?: (row: any) => React.ReactNode;
 };
 export type Setting = {
     order?: string[];

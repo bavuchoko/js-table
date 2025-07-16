@@ -7,7 +7,7 @@ type customProps ={
 
 const Lefter: FC<customProps> =({onClick})=>{
     return(
-        <button onClick={onClick} className={`rounded-radius-l-tb bg-blue-300 cursor-pointer h-[18px] mt-[1px] active:scale-90 pagination-lefter-button`}>
+        <button onClick={onClick} className={`rounded-radius-l-tb bg-gray-700 cursor-pointer h-[18px] mt-[1px] active:scale-90 pagination-lefter-button`}>
             <svg xmlns="http://www.w3.org/2000/svg" className={`cursor-pointer`} fill="white" width="20px"
                  height="18px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
                 <path

@@ -27,7 +27,11 @@ const JsTable: FC<JsTableProps> = ({
 
     const [order, setOrder] = useState<string[]>(setting?.order ?? header.filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
     const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked, getNestedValue } = useDataHandler(data);
+    
+    // hook : 칼럼 초기값 세팅
     const visibleHeaders = useHeaderHandler(header, order, setting?.hidden ?? []);
+
+    // hook : 넓이조절 
     const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(
         resizable,
         visibleHeaders,
@@ -35,6 +39,8 @@ const JsTable: FC<JsTableProps> = ({
             setColumnWidths(widths);
             onResizeWidth?.(widths);
         });
+    
+    // hook : 칼럼 순서변경
     const { handleDragStart, allowDrop, handleDragOver } = useDragHandler(
         draggable,
         order,
@@ -47,16 +53,20 @@ const JsTable: FC<JsTableProps> = ({
 
     const [hiddens, setHiddens] = useState(setting?.hidden??[]);
 
+    //클릭요소 저장
     const [clicked, setClicked] = useState<number | null>(null);
 
-
+    // 페이지네이션 종류에 따라 테이블영역 높이 변경
+    const hasPagination = usePagination === true || usePagination === 'top' || usePagination === 'bottom';
+    const heightStyle = `calc(100% - ${hasPagination ? '31px' : '0px'})`;
+    
     return (
 
-        <div className={`w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-dots bg-dot' } `}>
+        <div className={`w-full h-full border-deepGray border  ${theme ==='dot' && 'bg-lightGray bg-dots bg-dot' } `}>
             {data.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
             }
-            <div className={`no-scroll`} style={{height:`calc(100% - ${usePagination ? '31px' : '0px' } )`, overflowY:'auto' }}>
+            <div className={`no-scroll`} style={{ height: heightStyle, overflowY: 'auto' }}>
 
                 {data?.length > 0 ?
                     <table className={`bg-white`} style={style?.body}>
@@ -164,11 +174,12 @@ const JsTable: FC<JsTableProps> = ({
                                 {visibleHeaders.map((h, i) => (
                                     <td
                                         key={`c_` + i}
-                                        className={`border-deepGray border-r border-b indent-2`}
+                                        className={`border-deepGray border-r border-b indent-2 cursor-pointer relative`}
                                         style={{ fontSize: style?.body.fontSize ?? '12px'}} >
-                                        <button className={`truncate`}>
-                                            {getNestedValue(item, h.key)}
-                                        </button>
+                                            {h.renderer
+                                                ? (h.renderer(item))
+                                                : getNestedValue(item, h.key)
+                                            }
                                     </td>
                                 ))}
                             </tr>
@@ -186,7 +197,7 @@ const JsTable: FC<JsTableProps> = ({
                 }
             </div>
 
-            {data.length > 0 && (page && usePagination) && usePagination !== 'top' &&
+            {data.length > 0 && (page && usePagination) && (usePagination === 'bottom' || usePagination === true) &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination}/>
             }
         </div>
