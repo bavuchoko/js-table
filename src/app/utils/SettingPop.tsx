@@ -52,7 +52,6 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-
                     backgroundColor: 'white',
                     zIndex: 50,
                     border: '1px solid #000000',
@@ -65,19 +64,20 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                     <p style={{fontSize:'12px'}}>특정 칼럼을 표시 제외하거나 추가합니다.</p>
                 </div>
                 
-                <div style={{width:'calc(100% - 32px)'}}>
+                <div style={{width:'calc(100% - 2px)'}}>
                     <div style={{
                         background:'var(--lightGray)',
                         padding:'5px 15px',
                         marginBottom:'15px',
                         marginLeft:'1px',
                         alignItems: 'center',
-                        width:'100%'
+                        width:'100%',
+                        display:'flex',
                     }}>
                         <Eye style={{width:"20px", height:"20px", marginTop:'3px'}} />
                         <div  style={{
-                            marginTop:'2px',
-                            float:'right'
+                            marginTop:'6px',
+                            marginLeft:'auto'
                         }}> <ToggleSwitch  {...toggleProp} /></div>
                     </div>
 
@@ -90,9 +90,8 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                         display:'flex'
                     }}>
                         <Blind style={{
-                            borderRight:'1px solid',
-                            width:"20px", height:"20px", marginTop:'3px', paddingRight:'10px', marginRight:'10px',
-                            borderColor:'var(--deepGray)',}} />
+                            width:"20px", height:"20px", marginTop:'3px',
+                        }} />
                         <div
                             style={{
                                 display: 'grid',

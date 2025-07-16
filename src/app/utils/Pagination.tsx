@@ -2,7 +2,6 @@ import {FC, useState} from "react";
 import {Page} from "../type/Types";
 import Lefter from "./Lefter";
 import Righter from "./Righter";
-import Setting from "../resource/icon/setting.png"
 import SettingIcon from "./SettingIcon";
 
 interface PaginationProps {
@@ -43,7 +42,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
     return(
         <div
             style={{
-                height:"18px",
+                height:"30px",
                 borderTop: `${ direction && ( direction ==='bottom'|| direction === true ) ? '1px solid' : 'none'}`,
                 borderBottom: `${ direction && direction ==='top' ? '1px solid' : 'none' }`,
                 backgroundColor: 'var(--lightGray)',

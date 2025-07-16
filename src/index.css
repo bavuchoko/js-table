@@ -36,7 +36,7 @@ p{
   --buble: #fffef7;
   --dot: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   --glass:rgba(224, 224, 224, 0.42)
-}
+}ㅇ
 .relative{
   position: relative;
 }
@@ -128,4 +128,7 @@ p{
 .no-focus-style:focus-visible {
   outline: none;
   box-shadow: none;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
 }
