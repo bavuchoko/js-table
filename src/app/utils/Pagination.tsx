@@ -41,11 +41,32 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
 
 
     return(
-        <div className={`h-[30px]  ${ direction && direction !=='top' ? 'border-t' : (direction ==='top' ? 'border-b':'') } bg-gray-50  border-deepGray p-[6px]  line-h-20`}>
-            <div className={`flex`}>
+        <div
+            style={{
+                height:"18px",
+                borderTop: `${ direction && ( direction ==='bottom'|| direction === true ) ? '1px solid' : 'none'}`,
+                borderBottom: `${ direction && direction ==='top' ? '1px solid' : 'none' }`,
+                backgroundColor: 'var(--lightGray)',
+                borderColor: 'var(--deepGray)',
+                padding :'6px',
+                lineHeight:'20px',
+            }}
+            >
+            <div className={`flex `}>
                 <Lefter onClick={()=>handleButtonClick( inputValue - 1)} />
-                <div className={`flex mx-1.5`}>
-                    <input type={'number'} className={`border rounded border-deepGray w-[40px] h-[20px] text-right text-[12px] mr-1.5`}
+                <div className={`flex`} style={{marginLeft:'10px', marginRight:'15px'}} >
+                    <input type={'number'}
+                           style={{
+                               border:'1px solid',
+                               borderRadius:'3px',
+                               borderColor:'var(--deepGray)',
+                               textAlign:'right',
+                               fontSize:'12px',
+                               marginRight:'15px',
+                               width:'40px',
+                               height:'20px',
+                               boxSizing:'border-box'
+                           }}
                            onChange={(e)=>handleInputChange(Number(e.target.value))}
                            value={inputValue}
                            onFocus={(e) => e.target.select()}
@@ -56,7 +77,8 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                            }}
                            onBlur={handleInputBlur}
                     />
-                    <p className={`select-none h-[20px] text-[13px]`}>/ {page.totalPages}</p>
+                    <p style={{fontSize:'13px', height:'20px'}}
+                        className={`no-select`}>/ {page.totalPages}</p>
                 </div>
 
                 <Righter  onClick={()=>handleButtonClick( inputValue + 1)} />
@@ -65,8 +87,9 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                 <SettingIcon style={{width:"20px", height:"20px", marginLeft:"10px", cursor:"pointer"}} onClick={toggleSetting}/>
                 }
 
-                <div className={`text-[13px] ml-auto mr-3 flex`}>
-                    <p>total</p> <p className={`splice mx-2 border-l border-deepGray`}></p> <p>{page.totalElements}</p>
+                <div style={{fontSize:'13px', marginLeft:'auto', marginRight:'30px'}}
+                    className={`flex no-select`}>
+                    <p>total</p> <p style={{marginLeft:'5px', marginRight:'5px', borderLeft:'1px solid', borderColor:'var(--deepGray)'}} ></p> <p>{page.totalElements}</p>
                 </div>
 
             </div>

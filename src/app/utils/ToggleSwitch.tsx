@@ -1,28 +1,41 @@
 import {FC, useState} from "react";
 import {ToggleProp} from "./SettingPop";
 
-
-
 const ToggleSwitch: FC<ToggleProp> = ({ value, fnc }) => {
-
-
     return (
-        <button
-            type="button"
+        <div
             role="switch"
             aria-checked={value}
             onClick={() => fnc(!value)}
-            className={`relative inline-flex h-4 w-7 items-center rounded-full
-              ${value ? "bg-blue-600" : "bg-gray-300"}
-              focus:outline-none
-            `}
+            style={{
+                position: 'relative',
+                display: 'inline-flex',
+                height: '20px',
+                width: '35px',
+                alignItems: 'center',
+                borderRadius: '9999px',
+                backgroundColor: value ? '#2563eb' : '#d1d5db',
+                padding: '0',
+                border: 'none',
+                cursor: 'pointer',
+                outline: 'none',
+                boxShadow: 'none', // ← 중요
+            }}
             tabIndex={0}
         >
       <span
-          className={`inline-block h-2.5 w-2.5 transform rounded-full bg-white transition-transform
-          ${value ? "translate-x-3.5" : "translate-x-1"}`}
+          style={{
+              position: 'absolute',
+              height: '14px',
+              width: '14px',
+              left: value ? 'calc(100% - 16px)' : '2px',
+              top: '3px',
+              borderRadius: '50%',
+              backgroundColor: 'white',
+              transition: 'left 150ms ease-in-out',
+          }}
       />
-        </button>
+        </div>
     );
 };
 

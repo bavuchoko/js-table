@@ -70,7 +70,7 @@ const JsTable: FC<JsTableProps> = ({
     const { isSettingOpen, openPopup, closePopup, togglePopup } = useSettingPop();
 
     // hook : 로직에 관계없는 옵션값에 따른 스타일 변화 : 테마, 배경
-    const { hasPagination, heightStyle, themeClass } = useCustomStyle(usePagination, theme);
+    const { hasPagination, heightStyle, themeStyle } = useCustomStyle(usePagination, theme);
 
     // 숨김요소
     const [hiddenActive, setHiddenActive] = useState(false);
@@ -82,7 +82,18 @@ const JsTable: FC<JsTableProps> = ({
 
     return (
 
-        <div className={`relative w-full h-full border-deepGray border  ${themeClass} `}>
+        <div
+            style={{
+                padding:0,
+                position:'relative',
+                border:'1px solid',
+                display:'inline-block',
+                width:'100%',
+                height:'100%',
+                borderColor:'var(--deepGray)',
+                ...themeStyle
+            }}
+        >
 
             {isSettingOpen &&
                 <SettingPop
@@ -99,13 +110,22 @@ const JsTable: FC<JsTableProps> = ({
             <div className={`no-scroll`} style={{ height: heightStyle, overflowY: 'auto' }}>
 
                 {data?.length > 0 ?
-                    <table className={`bg-white`} style={style?.body}>
+                    <table style={ {borderCollapse: 'collapse', background:'white', ...style?.body} }>
                         <thead>
                         <tr >
                             {header.some(h => h.key === 'checker') &&
                                 <th
-                                    className={`border-deepGray border-r border-b bg-th`}
-                                    style={{width: '40px', maxWidth: '40px', position: 'sticky', top: 0, zIndex: "1", ...style?.header}}
+                                    style={{
+                                        borderRight: '1px solid',
+                                        borderBottom: '1px solid',
+                                        background: 'var(--th)',
+                                        width: '40px',
+                                        maxWidth: '40px',
+                                        position: 'sticky',
+                                        top: 0,
+                                        borderColor: 'var(--deepGray)',
+                                        zIndex: "1",
+                                        ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
                                 >
                                     <input type="checkbox"
@@ -116,18 +136,21 @@ const JsTable: FC<JsTableProps> = ({
                             }
                             {header.some(h => h.key === 'no') &&
                                 <th
-                                    className={`border-deepGray border-r border-b bg-th `}
                                     style={{
+                                        borderRight: '1px solid',
+                                        borderBottom: '1px solid',
+                                        background: 'var(--th)',
                                         width: '50px',
                                         fontSize: '12px',
                                         textAlign: 'center',
                                         position: 'sticky',
                                         top: 0,
                                         zIndex: "1",
+                                        borderColor: 'var(--deepGray)',
                                         ...style?.header
                                     }}
                                 >
-                                    <button>No</button>
+                                    No
                                 </th>
                             }
 
@@ -135,8 +158,11 @@ const JsTable: FC<JsTableProps> = ({
                                 .map((h, i) => (
                                     <th
                                         key={`h_` + i}
-                                        className="border-deepGray border-r border-b bg-th"
                                         style={{
+                                            borderRight: '1px solid',
+                                            borderBottom: '1px solid',
+                                            background: 'var(--th)',
+                                            borderColor: 'var(--deepGray)',
                                             width: `${columnWidths[i]}px`,
                                             fontSize: '12px',
                                             position: 'sticky',
@@ -146,7 +172,14 @@ const JsTable: FC<JsTableProps> = ({
                                         }}
                                     >
                                         <div
-                                            className={`inline-block cursor-pointer w-[calc(100%-50px)] float-left text-left ml-[10px]`}
+                                            style={{
+                                                display:'inline-block',
+                                                cursor:'pointer',
+                                                width: 'calc(100%-50px)',
+                                                float:'left',
+                                                marginLeft:'10px',
+                                                textAlign:'left',
+                                            }}
                                             draggable={draggable}
                                             onDragStart={(e) => handleDragStart(e, i)}
                                             onDragOver={allowDrop}
@@ -154,10 +187,21 @@ const JsTable: FC<JsTableProps> = ({
                                         >
                                             {h.label}
                                         </div>
-
+                                        {resizable &&
+                                            <div
+                                                className="cursor-col-resize resize-handle"
+                                                style={{
+                                                    float:'right',
+                                                    width: '4px',
+                                                    minHeight:'21px',
+                                                    height:'100%',
+                                                    color:'gray',
+                                                    cursor:'col-resize'
+                                                }}
+                                                onMouseDown={(e) => handleMouseDown(e, i)}
+                                            >|</div>
+                                        }
                                         {hiddenActive &&
-
-
                                                 <Blind
                                                     style={{
                                                         width:"18px",
@@ -165,17 +209,15 @@ const JsTable: FC<JsTableProps> = ({
                                                         border: "1px solid gray",
                                                         borderRadius: "3px",
                                                         display:"inline-block",
+                                                        marginRight:'5px',
+                                                        float:'right',
+                                                        cursor:'pointer',
                                                         background:"white"
                                                 }}
                                                     onClick={() => hideColumn(h.key)}/>
                                         }
 
-                                        {resizable &&
-                                            <div
-                                                className="float-right w-[4px] min-h-[21px] h-full cursor-col-resize resize-handle text-gray-400"
-                                                onMouseDown={(e) => handleMouseDown(e, i)}
-                                            >|</div>
-                                        }
+
                                     </th>
                                 ))}
                         </tr>
@@ -183,13 +225,18 @@ const JsTable: FC<JsTableProps> = ({
 
                         <tbody>
                         {(data.map((item, rowIndex) => (
-                            <tr key={"r_" + rowIndex} className={`hover-table-row hover:bg-hover ${clicked===item.id && '!bg-clicked'}`} onClick={() =>{
+                            <tr key={"r_" + rowIndex} className={`hover-table-row ${clicked===item.id && 'bg-clicked'}`} onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
                                 {header.some(h => h.key === 'checker') &&
                                     <td
-                                        className={`text-center border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' }  `}
+                                        style={{
+                                            textAlign:'center',
+                                            borderRight:'1px solid',
+                                            borderBottom:`${rowIndex < data.length -1 ? '1px solid' :'none' }`,
+                                            borderColor:'var(--deepGray)',
+                                        }}
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -205,24 +252,44 @@ const JsTable: FC<JsTableProps> = ({
                                 }
                                 {header.some(h => h.key === 'no') &&
                                     <td
-                                        className={`border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' } `}
-                                        style={{width: '50px', textAlign: 'center', fontSize: '13px'}}
+                                        style={{
+                                            borderRight:'1px solid',
+                                            borderBottom: `${rowIndex < data.length -1 ? '1px solid' :'none' }`,
+                                            width: '50px',
+                                            textAlign: 'center',
+                                            borderColor:'var(--deepGray)',
+                                            fontSize: '13px'
+                                        }}
                                     >
-                                        <button> {page
+                                        {page
                                             ? (page.totalElements ?? 0) - ((page.currentPage ?? 0) * (page.size ?? 0) + rowIndex)
                                             : rowIndex + 1
                                         }
-                                        </button>
                                     </td>
                                 }
 
                                 {visibleHeaders.map((h, i) => (
                                     <td
                                         key={`c_` + i}
-                                        className={`border-deepGray border-r ${rowIndex < data.length -1 ? 'border-b' :'' }  indent-2 cursor-pointer relative`}
-                                        style={{ fontSize: style?.body?.fontSize ?? '12px'}} >
+                                        style={{
+                                            borderRight:'1px solid',
+                                            borderBottom:`${rowIndex < data.length -1 ? '1px solid':'none'}`,
+                                            textIndent:'10px',
+                                            cursor:'pointer',
+                                            position:'relative',
+                                            borderColor:'var(--deepGray)',
+                                            fontSize: style?.body?.fontSize ?? '12px'
+                                            }} >
                                             {h.renderer
-                                                ?  <div className={`absolute top-0 h-full w-full`}>{h.renderer(item)}</div>
+                                                ?  <div
+                                                        style={{
+                                                            position:'absolute',
+                                                            top:'0px ',
+                                                            height:'100%',
+                                                            width:'100%'
+                                                        }}
+                                                    >{h.renderer(item)}</div>
+
                                                 : getNestedValue(item, h.key)
                                             }
                                     </td>
@@ -235,9 +302,9 @@ const JsTable: FC<JsTableProps> = ({
                     :
                     <div className="flex justify-center items-center h-full">
                         <Empty style={{width:'100px', }} />
-                        <div className={`ml-3`}>
-                            <p className={`text-2xl`}> Sorry !!</p>
-                            <p className={`text-sm`}>There's nothing here.</p>
+                        <div style={{marginLeft: '15px'}}>
+                            <p style={{fontSize: '18px'}} > Sorry !!</p>
+                            <p  style={{fontSize: '13px'}}>There's nothing here.</p>
                         </div>
                     </div>
                 }

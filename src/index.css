@@ -21,6 +21,34 @@ table td {
   padding: 0;
   margin: 0;
 }
+p{
+  margin: 0;
+}
+:root {
+  --vh: 100%;
+  --darkGray: #3f3e3e;
+  --deepGray: #b3b3b3;
+  --lightGray: #f3f3f3;
+  --th: #e5e5e5;
+  --hover: #ececec;
+  --clicked: rgba(209, 234, 255, 0.73);
+  --innerline: #7ac7ff;
+  --buble: #fffef7;
+  --dot: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  --glass:rgba(224, 224, 224, 0.42)
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
+}
+.inline-block{
+  display: inline-block;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
 .no-scroll {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -28,9 +56,76 @@ table td {
 .no-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
 }
+.w-300{
+  width: 300px;
+}
+.w-1200{
+  width: 1200px;
+}
+.hover-table-row:hover{
+  background: var(--hover);
+}
+.flex{
+  display: flex;
+}
+.h-200{
+  height: 200px;
+}
+.h-500{
+  height: 500px;
+}
 .line-h-25{
   line-height: 25px;
 }
 .line-h-20{
   line-height: 20px;
+}
+/* 강한 그림자 */
+.shadow-strong {
+  box-shadow: -2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 왼쪽 둥근 모서리 */
+.rounded-radius-l-tb {
+  border-radius: 5px 0 0 5px;
+}
+
+
+
+/* 도트 배경 */
+.bg-dots {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+}
+.bg-size-dot {
+  background-size: 10px 10px;
+}
+
+.bg-clicked{
+  background-color: var(--clicked) !important;
+}
+
+.text-clicked {
+  color: rgba(209, 234, 255, 0.73);
+}
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.no-select {
+  user-select: none;
+}
+.active-scale-90:active{
+  scale: 90%;
+}
+.no-focus-style:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.no-focus-style:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
