@@ -9,7 +9,7 @@ function App() {
         {key:'no', },
         {key:'name', label: '이름', style: {width:'200px'}},
         {key:'title', label: '제목', style: {fontSize: 12}},
-        {key:'createdBy.name', label: '등록자', style: {fontSize: 12}, renderer: (data: any) => <p className={`h-full bg-red-500`} onClick={()=>alert(data.createdBy.id)}>{data.createdBy.name}</p>},
+        {key:'createdBy.name', label: '등록자', style: { fontSize: 12}, renderer: (data: any) => <p className={`h-full bg-red-500`} onClick={()=>alert(data.createdBy.id)}>{data.createdBy.name}</p>},
     ]
 
     const data: any =[
@@ -56,6 +56,7 @@ function App() {
                         useSetting={true}
                         usePagination
                         onHeaderMove={v =>{console.log('order:', v)}}
+                        onHiddenUpdate={v =>{console.log('hidden:', v)}}
                         resizable={true}
                         draggable={true}
                         onRowClick={v=>console.log('id:', v)}

@@ -12,8 +12,8 @@ export type JsTableProps ={
     useSetting?:boolean;
     theme?: Theme;
     style?: Style;
-    onHeaderClick?: (event: React.MouseEvent) => void;
     onHeaderMove?: (newOrder: string[]) => void;
+    onHiddenUpdate?: (newHidden: string[]) => void;
     onResizeWidth?: (newOrder: number[]) => void;
     onRowClick?: (id: number) => void;
     onPageChange?: (clickPage: number) => void;

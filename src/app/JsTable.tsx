@@ -6,9 +6,11 @@ import {useHeaderHandler} from "./hook/useHeaderHandler";
 import {useColumnWidths} from "./hook/useColumnWidths";
 import Pagination from "./utils/Pagination";
 import Empty from '../app/resource/icon/empty.png'
+import Blind from '../app/resource/icon/blind.png'
 import {useSettingPop} from "./hook/useSettingPop";
 import {useCustomStyle} from "./hook/useCustomStyle";
 import SettingPop from "./utils/SettingPop";
+import {useHiddenHeader} from "./hook/useHiddenHeader";
 
 const JsTable: FC<JsTableProps> = ({
                                        header,
@@ -21,7 +23,7 @@ const JsTable: FC<JsTableProps> = ({
                                        style = undefined,
                                        onHeaderMove = undefined,
                                        onResizeWidth = undefined,
-                                       onHeaderClick = undefined,
+                                       onHiddenUpdate = undefined,
                                        onRowClick = undefined,
                                        onPageChange = undefined,
                                        resizable =false,
@@ -31,9 +33,18 @@ const JsTable: FC<JsTableProps> = ({
 
     const [order, setOrder] = useState<string[]>(setting?.order ?? header.filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
     const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked, getNestedValue } = useDataHandler(data);
-    
+
+    // hook : 숨김처리
+    const {
+        hidden,
+        hideColumn,
+        showColumn,
+        toggleColumn,
+        setHidden
+    } = useHiddenHeader(setting?.hidden ?? [], onHiddenUpdate);
+
     // hook : 칼럼 초기값 세팅
-    const visibleHeaders = useHeaderHandler(header, order, setting?.hidden ?? []);
+    const visibleHeaders = useHeaderHandler(header, order, hidden);
 
     // hook : 넓이조절 
     const { columnWidths, setColumnWidths, handleMouseDown } = useColumnWidths(
@@ -62,19 +73,25 @@ const JsTable: FC<JsTableProps> = ({
     const { hasPagination, heightStyle, themeClass } = useCustomStyle(usePagination, theme);
 
     // 숨김요소
-    const [hiddens, setHiddens] = useState(setting?.hidden??[]);
+    const [hiddenActive, setHiddenActive] = useState(false);
+
 
     //클릭요소 저장
     const [clicked, setClicked] = useState<number | null>(null);
-
-
 
 
     return (
 
         <div className={`relative w-full h-full border-deepGray border  ${themeClass} `}>
 
-            {isSettingOpen && <SettingPop /> }
+            {isSettingOpen &&
+                <SettingPop
+                    closePopup={closePopup}
+                    toggleProp={{value :hiddenActive, fnc: setHiddenActive}}
+                    rowHeader={header}
+                    elements={hidden}
+                    showColumn={showColumn}
+                /> }
 
             {data.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination} toggleSetting={useSetting ? togglePopup : undefined}/>
@@ -129,7 +146,7 @@ const JsTable: FC<JsTableProps> = ({
                                         }}
                                     >
                                         <div
-                                            className={`inline-block cursor-pointer w-[calc(100%-5px)] text-left indent-2`}
+                                            className={`inline-block cursor-pointer w-[calc(100%-50px)] float-left text-left ml-[10px]`}
                                             draggable={draggable}
                                             onDragStart={(e) => handleDragStart(e, i)}
                                             onDragOver={allowDrop}
@@ -137,6 +154,14 @@ const JsTable: FC<JsTableProps> = ({
                                         >
                                             {h.label}
                                         </div>
+
+                                        {hiddenActive &&
+                                            <img
+                                                src={Blind}
+                                                className={`inline-block w-[18px] cursor-pointer border rounded border-deepGray active:scale-90 bg-white p-[1px]`}
+                                                onClick={() => hideColumn(h.key)}
+                                            />
+                                        }
 
                                         {resizable &&
                                             <div

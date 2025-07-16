@@ -17,6 +17,7 @@ module.exports = {
         'dot': '10px 10px',
       },
       colors: {
+        glass: `rgba(224, 224, 224, 0.42)`,
         deepGray : `#b3b3b3`,
         lightGray:`rgba(239, 239, 239, 0.49)`,
         th : `#e5e5e5`,
