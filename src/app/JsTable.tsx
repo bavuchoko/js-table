@@ -85,6 +85,7 @@ const JsTable: FC<JsTableProps> = ({
     return (
 
         <div
+            className={`jsTable-container`}
             style={{
                 padding:0,
                 position:'relative',
