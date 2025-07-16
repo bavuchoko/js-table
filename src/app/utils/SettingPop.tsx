@@ -1,8 +1,9 @@
-import Eye from '../resource/icon/eye.png'
-import Blind from '../resource/icon/blind.png'
+
 import ToggleSwitch from "./ToggleSwitch";
 import {FC, useEffect, useRef} from "react";
 import {Header} from "../type/Types";
+import Eye from "./Eye";
+import Blind from "./Blind";
 
 export type ToggleProp ={
     value:boolean;
@@ -40,11 +41,11 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                 ref={popupRef}
                 className={`absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 bg-white z-50 border flex shadow-strong`} >
                 <div className={`mr-5`}>
-                        <img src={Eye} alt="Eye" className={`w-[20px] h-[20px] mb-5`}/>
-                        <img src={Blind} alt="Eye" className={`w-[20px] h-[20px] `}/>
+                        <Eye style={{width:"20px", height:"20px", marginBottom:"17px"}} />
+                        <Blind style={{width:"20px", height:"20px",}} />
                 </div>
                 <div className={``}>
-                    <div className={` mt-[-2px] mb-5`}> <ToggleSwitch  {...toggleProp} /></div>
+                    <div className={` mt-[-3px] mb-[15px] ml-2`}> <ToggleSwitch  {...toggleProp} /></div>
                     <div className={`flex grid grid-cols-4 gap-3 bg-white `}>
                         {elements.map(el => {
                             const matched = rowHeader.find(h => h.key === el);

@@ -3,6 +3,7 @@ import {Page} from "../type/Types";
 import Lefter from "./Lefter";
 import Righter from "./Righter";
 import Setting from "../resource/icon/setting.png"
+import SettingIcon from "./SettingIcon";
 
 interface PaginationProps {
     page: Page;
@@ -61,7 +62,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                 <Righter  onClick={()=>handleButtonClick( inputValue + 1)} />
 
                 {toggleSetting &&
-                <img src={Setting} className={`w-4 h-4 my-0.5 ml-5 active:scale-90 cursor-pointer`} onClick={toggleSetting}/>
+                <SettingIcon style={{width:"20px", height:"20px", marginLeft:"10px", cursor:"pointer"}} onClick={toggleSetting}/>
                 }
 
                 <div className={`text-[13px] ml-auto mr-3 flex`}>

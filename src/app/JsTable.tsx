@@ -5,12 +5,12 @@ import {useDragHandler} from "./hook/useDragHandler";
 import {useHeaderHandler} from "./hook/useHeaderHandler";
 import {useColumnWidths} from "./hook/useColumnWidths";
 import Pagination from "./utils/Pagination";
-import Empty from '../app/resource/icon/empty.png'
-import Blind from '../app/resource/icon/blind.png'
 import {useSettingPop} from "./hook/useSettingPop";
 import {useCustomStyle} from "./hook/useCustomStyle";
 import SettingPop from "./utils/SettingPop";
 import {useHiddenHeader} from "./hook/useHiddenHeader";
+import Blind from "./utils/Blind";
+import Empty from "./utils/Empty";
 
 const JsTable: FC<JsTableProps> = ({
                                        header,
@@ -156,11 +156,18 @@ const JsTable: FC<JsTableProps> = ({
                                         </div>
 
                                         {hiddenActive &&
-                                            <img
-                                                src={Blind}
-                                                className={`inline-block w-[18px] cursor-pointer border rounded border-deepGray active:scale-90 bg-white p-[1px]`}
-                                                onClick={() => hideColumn(h.key)}
-                                            />
+
+
+                                                <Blind
+                                                    style={{
+                                                        width:"18px",
+                                                        height:"18px",
+                                                        border: "1px solid gray",
+                                                        borderRadius: "3px",
+                                                        display:"inline-block",
+                                                        background:"white"
+                                                }}
+                                                    onClick={() => hideColumn(h.key)}/>
                                         }
 
                                         {resizable &&
@@ -227,7 +234,7 @@ const JsTable: FC<JsTableProps> = ({
                     </table>
                     :
                     <div className="flex justify-center items-center h-full">
-                        <img src={Empty} className={`w-[4rem]`}/>
+                        <Empty style={{width:'100px', }} />
                         <div className={`ml-3`}>
                             <p className={`text-2xl`}> Sorry !!</p>
                             <p className={`text-sm`}>There's nothing here.</p>

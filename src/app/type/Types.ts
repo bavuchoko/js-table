@@ -43,3 +43,9 @@ export type Page = {
     sort?: string[];
     desc?: string;
 }
+
+
+export type ClickProps ={
+    style?: React.CSSProperties;
+    onClick?:()=>void;
+}
