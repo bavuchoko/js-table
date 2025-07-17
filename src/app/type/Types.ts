@@ -1,6 +1,7 @@
 import React from "react";
 type PaginationPosition = 'top' | 'bottom' ;
-type Theme = 'dot' | 'normal';
+type Background = 'dot' | 'normal';
+type Theme = 'table' | 'linear';
 
 
 export type JsTableProps ={
@@ -10,6 +11,7 @@ export type JsTableProps ={
     page?: Page;
     usePagination?:boolean | PaginationPosition;
     useSetting?:boolean;
+    background?: Background;
     theme?: Theme;
     style?: Style;
     onHeaderMove?: (newOrder: string[]) => void;

@@ -35,7 +35,8 @@ p{
   --innerline: #7ac7ff;
   --buble: #fffef7;
   --dot: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-  --glass:rgba(224, 224, 224, 0.42)
+  --glass:rgba(224, 224, 224, 0.42);
+  --linearThemeColor: rgba(77, 149, 231, 0.66)
 }
 .relative{
   position: relative;

@@ -20,6 +20,7 @@ const JsTable: FC<JsTableProps> = ({
                                        page = undefined,
                                        usePagination = undefined,
                                        useSetting =false,
+                                       background = undefined,
                                        theme = undefined,
                                        style = undefined,
                                        onHeaderMove = undefined,
@@ -71,7 +72,7 @@ const JsTable: FC<JsTableProps> = ({
     const { isSettingOpen, openPopup, closePopup, togglePopup } = useSettingPop();
 
     // hook : 로직에 관계없는 옵션값에 따른 스타일 변화 : 테마, 배경
-    const { hasPagination, heightStyle, themeStyle } = useCustomStyle(usePagination, theme);
+    const { hasPagination, heightStyle, backgroundStyle, thThemeStyle, tdThemeStyle } = useCustomStyle(usePagination, background, theme);
 
     // 숨김요소
     const [hiddenActive, setHiddenActive] = useState(false);
@@ -95,7 +96,7 @@ const JsTable: FC<JsTableProps> = ({
                 width:'100%',
                 height:'100%',
                 borderColor:'var(--deepGray)'	,
-                ...themeStyle
+                ...backgroundStyle
             }}
         >
 
@@ -120,15 +121,13 @@ const JsTable: FC<JsTableProps> = ({
                             {header.some(h => h.key === 'checker') &&
                                 <th
                                     style={{
-                                        borderRight: '1px solid',
-                                        borderBottom: '1px solid',
-                                        background: 'var(--th)',
+
                                         width: '40px',
                                         maxWidth: '40px',
                                         position: 'sticky',
                                         top: 0,
-                                        borderColor: 'var(--deepGray)'	,
                                         zIndex: "1",
+                                        ...thThemeStyle,
                                         ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
                                 >
@@ -141,9 +140,7 @@ const JsTable: FC<JsTableProps> = ({
                             {header.some(h => h.key === 'no') &&
                                 <th
                                     style={{
-                                        borderRight: '1px solid',
                                         borderBottom: '1px solid',
-                                        background: 'var(--th)',
                                         width: '50px',
                                         fontSize: '12px',
                                         textAlign: 'center',
@@ -151,7 +148,8 @@ const JsTable: FC<JsTableProps> = ({
                                         top: 0,
                                         zIndex: "1",
                                         borderColor: 'var(--deepGray)'	,
-                                        ...style?.header
+                                        ...thThemeStyle,
+                                        ...style?.header,
                                     }}
                                 >
                                     No
@@ -163,63 +161,77 @@ const JsTable: FC<JsTableProps> = ({
                                     <th
                                         key={`h_` + i}
                                         style={{
-                                            borderRight: '1px solid',
                                             borderBottom: '1px solid',
-                                            background: 'var(--th)',
                                             borderColor: 'var(--deepGray)'	,
                                             width: `${columnWidths[i]}px`,
                                             fontSize: '12px',
                                             position: 'sticky',
                                             top: 0,
                                             zIndex: '1',
-                                            ...style?.header
+                                            ...thThemeStyle,
+                                            ...style?.header,
                                         }}
                                     >
                                         <div
                                             style={{
-                                                display:'inline-block',
-                                                cursor:'pointer',
-                                                width: 'calc(100%-50px)',
-                                                float:'left',
-                                                marginLeft:'10px',
-                                                textAlign:'left',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between',
+                                                position: 'relative',
+                                                cursor: 'pointer',
+                                                width: '100%',
+                                                height: '100%',
+                                                textAlign: 'left',
+                                                padding: '0 10px',
+                                                boxSizing: 'border-box',
                                             }}
-                                            draggable={draggable}
-                                            onDragStart={(e) => handleDragStart(e, i)}
-                                            onDragOver={allowDrop}
-                                            onDrop={(e) => handleDragOver(e, i)}
+
                                         >
-                                            {h.label}
-                                        </div>
-                                        {resizable &&
+                                            {/* 왼쪽: label */}
                                             <div
-                                                className="cursor-col-resize resize-handle"
                                                 style={{
-                                                    float:'right',
-                                                    width: '4px',
-                                                    minHeight:'21px',
-                                                    height:'100%',
-                                                    color:'gray',
-                                                    cursor:'col-resize'
+                                                    display:'inline-block',
+                                                    width:'calc(100% - 5px)',
                                                 }}
-                                                onMouseDown={(e) => handleMouseDown(e, i)}
-                                            >|</div>
-                                        }
-                                        {hiddenActive &&
-                                                <Blind
-                                                    style={{
-                                                        width:"18px",
-                                                        height:"18px",
-                                                        border: "1px solid gray",
-                                                        borderRadius: "3px",
-                                                        display:"inline-block",
-                                                        marginRight:'5px',
-                                                        float:'right',
-                                                        cursor:'pointer',
-                                                        background:"white"
-                                                }}
-                                                    onClick={() => hideColumn(h.key)}/>
-                                        }
+                                                draggable={draggable}
+                                                onDragStart={(e) => handleDragStart(e, i)}
+                                                onDragOver={allowDrop}
+                                                onDrop={(e) => handleDragOver(e, i)}
+                                            >{h.label}</div>
+
+                                            {/* 오른쪽: Blind + Resize */}
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                {hiddenActive && (
+                                                    <Blind
+                                                        style={{
+                                                            width: "18px",
+                                                            height: "18px",
+                                                            border: "1px solid gray",
+                                                            borderRadius: "3px",
+                                                            cursor: "pointer",
+                                                            background: "white",
+                                                            marginRight: resizable ? "8px" : "0", // 핸들 있으면 간격
+                                                        }}
+                                                        onClick={() => hideColumn(h.key)}
+                                                    />
+                                                )}
+
+                                                {resizable && (
+                                                    <div
+                                                        className="cursor-col-resize resize-handle"
+                                                        style={{
+                                                            width: '4px',
+                                                            height: '100%',
+                                                            color: 'gray',
+                                                            cursor: 'col-resize',
+                                                        }}
+                                                        onMouseDown={(e) => handleMouseDown(e, i)}
+                                                    >
+                                                        |
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
 
 
                                     </th>
@@ -246,9 +258,10 @@ const JsTable: FC<JsTableProps> = ({
                                     <td
                                         style={{
                                             textAlign:'center',
-                                            borderRight:'1px solid',
                                             borderBottom:'1px solid',
-                                            borderColor:'var(--deepGray)'	,
+                                            borderColor:'var(--deepGray)',
+                                            ...tdThemeStyle,
+                                            ...style?.body,
                                         }}
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => {
@@ -266,12 +279,13 @@ const JsTable: FC<JsTableProps> = ({
                                 {header.some(h => h.key === 'no') &&
                                     <td
                                         style={{
-                                            borderRight:'1px solid',
                                             borderBottom: '1px solid',
                                             width: '50px',
                                             textAlign: 'center',
                                             borderColor:'var(--deepGray)'	,
-                                            fontSize: '13px'
+                                            fontSize: '13px',
+                                            ...tdThemeStyle,
+                                            ...style?.body,
                                         }}
                                     >
                                         {page
@@ -285,13 +299,14 @@ const JsTable: FC<JsTableProps> = ({
                                     <td
                                         key={`c_` + i}
                                         style={{
-                                            borderRight:'1px solid',
                                             borderBottom: '1px solid',
+                                            borderColor:'var(--deepGray)',
                                             textIndent:'10px',
                                             cursor:'pointer',
                                             position:'relative',
-                                            borderColor:'var(--deepGray)'	,
-                                            fontSize: style?.body?.fontSize ?? '12px'
+                                            fontSize: style?.body?.fontSize ?? '12px',
+                                            ...tdThemeStyle,
+                                            ...style?.body,
                                             }} >
                                             {h.renderer
                                                 ?  <div

@@ -1,6 +1,6 @@
 {
   "name": "@bavuchoko/js-table",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "A customizable React table component with resizing, reordering, and pagination.",
   "main": "dist/index.js",
   "module": "dist/index.js",

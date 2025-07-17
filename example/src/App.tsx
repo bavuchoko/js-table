@@ -46,7 +46,9 @@ function App() {
                     sort:['name'],
                     desc:'asc'
                 }}
-                theme={'dot'}
+                background={'dot'}
+                style={{ header:{height:"35px",}, body:{height:'35px'}}}
+                theme={'linear'}
                 useSetting={true}
                 usePagination
                 onHeaderMove={(v:any) =>{console.log('order:', v)}}
