@@ -15,7 +15,7 @@ React 기반의 커스터마이징 가능한 테이블 컴포넌트입니다. �
 ## 🚀 설치
 
 ```bash
-npm install react
+npm install @bavuchoko/js-table
 ```
 
 
