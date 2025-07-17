@@ -11,7 +11,7 @@ const Righter: FC<customProps> =({onClick})=>{
                 style={{
                     padding:'0',
                     borderRadius:'0 5px 5px 0',
-                    background:'#3f3e3e',
+                    background:'var(--darkGray)',
                     height:'18px',
                     marginTop:'1px',
                     width:'20px',

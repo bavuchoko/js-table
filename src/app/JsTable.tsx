@@ -11,6 +11,7 @@ import SettingPop from "./utils/SettingPop";
 import {useHiddenHeader} from "./hook/useHiddenHeader";
 import Blind from "./utils/Blind";
 import Empty from "./utils/Empty";
+import '../index.css';
 
 const JsTable: FC<JsTableProps> = ({
                                        header,
@@ -93,7 +94,7 @@ const JsTable: FC<JsTableProps> = ({
                 display:'inline-block',
                 width:'100%',
                 height:'100%',
-                borderColor:'#b3b3b3',
+                borderColor:'var(--deepGray)'	,
                 ...themeStyle
             }}
         >
@@ -121,12 +122,12 @@ const JsTable: FC<JsTableProps> = ({
                                     style={{
                                         borderRight: '1px solid',
                                         borderBottom: '1px solid',
-                                        background: '#e5e5e5',
+                                        background: 'var(--th)',
                                         width: '40px',
                                         maxWidth: '40px',
                                         position: 'sticky',
                                         top: 0,
-                                        borderColor: '#b3b3b3',
+                                        borderColor: 'var(--deepGray)'	,
                                         zIndex: "1",
                                         ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
@@ -142,14 +143,14 @@ const JsTable: FC<JsTableProps> = ({
                                     style={{
                                         borderRight: '1px solid',
                                         borderBottom: '1px solid',
-                                        background: '#e5e5e5',
+                                        background: 'var(--th)',
                                         width: '50px',
                                         fontSize: '12px',
                                         textAlign: 'center',
                                         position: 'sticky',
                                         top: 0,
                                         zIndex: "1",
-                                        borderColor: '#b3b3b3',
+                                        borderColor: 'var(--deepGray)'	,
                                         ...style?.header
                                     }}
                                 >
@@ -164,8 +165,8 @@ const JsTable: FC<JsTableProps> = ({
                                         style={{
                                             borderRight: '1px solid',
                                             borderBottom: '1px solid',
-                                            background: '#e5e5e5',
-                                            borderColor: '#b3b3b3',
+                                            background: 'var(--th)',
+                                            borderColor: 'var(--deepGray)'	,
                                             width: `${columnWidths[i]}px`,
                                             fontSize: '12px',
                                             position: 'sticky',
@@ -229,8 +230,6 @@ const JsTable: FC<JsTableProps> = ({
                         <tbody>
                         {(data.map((item, rowIndex) => (
                             <tr key={"r_" + rowIndex}
-                                onMouseEnter={() => setHoveredRow(item.id)}
-                                onMouseLeave={() => setHoveredRow(null)}
                                 style={{
                                     background:
                                         clicked === item.id
@@ -239,7 +238,6 @@ const JsTable: FC<JsTableProps> = ({
                                                 ? '#ececec'
                                                 : '',
                                 }}
-
                                 className={`hover-table-row ${clicked===item.id && 'bg-clicked'}`} onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
@@ -250,7 +248,7 @@ const JsTable: FC<JsTableProps> = ({
                                             textAlign:'center',
                                             borderRight:'1px solid',
                                             borderBottom:'1px solid',
-                                            borderColor:'#b3b3b3',
+                                            borderColor:'var(--deepGray)'	,
                                         }}
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onClick={(e) => {
@@ -272,7 +270,7 @@ const JsTable: FC<JsTableProps> = ({
                                             borderBottom: '1px solid',
                                             width: '50px',
                                             textAlign: 'center',
-                                            borderColor:'#b3b3b3',
+                                            borderColor:'var(--deepGray)'	,
                                             fontSize: '13px'
                                         }}
                                     >
@@ -292,7 +290,7 @@ const JsTable: FC<JsTableProps> = ({
                                             textIndent:'10px',
                                             cursor:'pointer',
                                             position:'relative',
-                                            borderColor:'#b3b3b3',
+                                            borderColor:'var(--deepGray)'	,
                                             fontSize: style?.body?.fontSize ?? '12px'
                                             }} >
                                             {h.renderer

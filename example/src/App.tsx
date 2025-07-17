@@ -7,7 +7,7 @@ function App() {
         {key:'no', },
         {key:'title', label: '제목', style: {width:'180px'}},
         {key:'name', label: '이름', style: {width:'120px'}},
-        {key:'createdBy.name', label: '등록자', style: { fontSize: 12}, renderer: (data: any) => <p className={`h-full bg-red-500`} onClick={()=>alert(data.createdBy.id)}>{data.createdBy.name}</p>},
+        {key:'createdBy.name', label: '등록자', style: { fontSize: 12}, renderer: (data: any) => <p className={`h-full `} style={{background:'red'}} onClick={()=>alert(data.createdBy.id)}>{data.createdBy.name}</p>},
     ]
 
     const data: any =[
@@ -35,7 +35,28 @@ function App() {
     return (
         <div className={' w-full h-[calc(100vh-12rem)]'}>
             <h1>테스트 페이지</h1>
-            <JsTable header={header} data={data} theme={'dot'}/>
+            <JsTable
+                header={header}
+                data={data}
+                page={{
+                    size:20,
+                    currentPage:0,
+                    totalPages:50,
+                    totalElements:1000,
+                    sort:['name'],
+                    desc:'asc'
+                }}
+                theme={'dot'}
+                useSetting={true}
+                usePagination
+                onHeaderMove={(v:any) =>{console.log('order:', v)}}
+                onHiddenUpdate={(v:any) =>{console.log('hidden:', v)}}
+                resizable={true}
+                draggable={true}
+                onRowClick={(v:any)=>console.log('id:', v)}
+                onResizeWidth={(v:any)=>console.log('width:', v)}
+                onPageChange={(v:any)=>console.log('page:', v)}
+            />
         </div>
     );
 }

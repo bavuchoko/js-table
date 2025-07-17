@@ -43,7 +43,7 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                     position:'absolute',
                     top:'0',
                     zIndex:'40',
-                    background:'rgba(224, 224, 224, 0.42)',
+                    background:'var(--glass)',
                 }}></div>
             <div
                 ref={popupRef}
@@ -66,7 +66,7 @@ const SettingPop: FC<SettingPopProps> =({closePopup, toggleProp, rowHeader=[], e
                 
                 <div style={{width:'calc(100% - 2px)'}}>
                     <div style={{
-                        background:'#f3f3f3',
+                        background:'var(--lightGray)'	,
                         padding:'5px 15px',
                         marginBottom:'15px',
                         marginLeft:'1px',

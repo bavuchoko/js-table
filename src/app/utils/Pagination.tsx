@@ -45,8 +45,8 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                 height:"30px",
                 borderTop: `${ direction && ( direction ==='bottom'|| direction === true ) ? '1px solid' : 'none'}`,
                 borderBottom: `${ direction && direction ==='top' ? '1px solid' : 'none' }`,
-                backgroundColor: '#f3f3f3',
-                borderColor: '#b3b3b3',
+                backgroundColor: 'var(--lightGray)'	,
+                borderColor: 'var(--deepGray)'	,
                 padding :'6px',
                 lineHeight:'20px',
             }}
@@ -58,7 +58,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                            style={{
                                border:'1px solid',
                                borderRadius:'3px',
-                               borderColor:'#b3b3b3',
+                               borderColor:'var(--deepGray)'	,
                                textAlign:'right',
                                fontSize:'12px',
                                marginRight:'15px',
@@ -88,7 +88,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
 
                 <div style={{fontSize:'13px', marginLeft:'auto', marginRight:'30px'}}
                     className={`flex no-select`}>
-                    <p>total</p> <p style={{marginLeft:'5px', marginRight:'5px', borderLeft:'1px solid', borderColor:'#b3b3b3'}} ></p> <p>{page.totalElements}</p>
+                    <p>total</p> <p style={{marginLeft:'5px', marginRight:'5px', borderLeft:'1px solid', borderColor:'var(--deepGray)'	}} ></p> <p>{page.totalElements}</p>
                 </div>
 
             </div>

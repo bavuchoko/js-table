@@ -63,7 +63,7 @@ p{
   width: 1200px;
 }
 .hover-table-row:hover{
-  background: #ececec;
+  background: var(--th);
 }
 .flex{
   display: flex;
@@ -94,7 +94,7 @@ p{
 
 /* 도트 배경 */
 .bg-dots {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-image: var(--dot);
 }
 .bg-size-dot {
   background-size: 10px 10px;
