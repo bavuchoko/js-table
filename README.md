@@ -42,6 +42,9 @@ const dataList = [
   { id: 2, name: 'Bob', email: 'bob@example.com', status: 'inactive' },
   // ...
 ];
+
+...
+
 <div style={{width:'1000px', height:'300px'}}>
     <JsTable
       header={headerList}
@@ -63,6 +66,7 @@ const dataList = [
       onPageChange={(page) => console.log('Changed to page:', page)}
     />
 </div>
+
 ...
 
 
