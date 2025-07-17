@@ -20,9 +20,8 @@ npm install @bavuchoko/js-table
 
 
 ---
-
+![img.png](img.png)
 ## ✨ 사용 예시
-
 ```tsx
 import { JsTable } from '@bavuchoko/js-table';
 
