@@ -42,26 +42,28 @@ const dataList = [
   { id: 2, name: 'Bob', email: 'bob@example.com', status: 'inactive' },
   // ...
 ];
-
-<JsTable
-  header={headerList}
-  data={dataList}
-  setting={{
-    hidden: ['email'],
-    order: ['id', 'name', 'email', 'status']
-  }}
-  page={{ currentPage: 0, size: 10, totalElements: 100 }}
-  usePagination="bottom"
-  useSetting={true}
-  background="light"
-  theme="dark"
-  resizable={true}
-  draggable={true}
-  onHeaderMove={(newOrder) => console.log('New order:', newOrder)}
-  onResizeWidth={(widths) => console.log('Widths:', widths)}
-  onRowClick={(id) => console.log('Clicked row ID:', id)}
-  onPageChange={(page) => console.log('Changed to page:', page)}
-/>
+<div style={{width:'1000px', height:'300px'}}>
+    <JsTable
+      header={headerList}
+      data={dataList}
+      setting={{
+        hidden: ['email'],
+        order: ['id', 'name', 'email', 'status']
+      }}
+      page={{ currentPage: 0, size: 10, totalElements: 100 }}
+      usePagination="bottom"
+      useSetting={true}
+      background="light"
+      theme="dark"
+      resizable={true}
+      draggable={true}
+      onHeaderMove={(newOrder) => console.log('New order:', newOrder)}
+      onResizeWidth={(widths) => console.log('Widths:', widths)}
+      onRowClick={(id) => console.log('Clicked row ID:', id)}
+      onPageChange={(page) => console.log('Changed to page:', page)}
+    />
+</div>
+...
 
 
 
