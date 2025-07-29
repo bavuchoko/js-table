@@ -121,12 +121,12 @@ const JsTable: FC<JsTableProps> = ({
                             {header && header.some(h => h.key === 'checker') &&
                                 <th
                                     style={{
-
                                         width: '40px',
                                         maxWidth: '40px',
                                         position: 'sticky',
                                         top: 0,
                                         zIndex: "1",
+                                        background: style?.header?.background ?? 'white',
                                         ...thThemeStyle,
                                         ...style?.header}}
                                     onChange={handleHeaderCheckboxClick}
@@ -147,6 +147,7 @@ const JsTable: FC<JsTableProps> = ({
                                         position: 'sticky',
                                         top: 0,
                                         zIndex: "1",
+                                        background: style?.header?.background ?? 'white',
                                         borderColor: 'var(--deepGray)'	,
                                         ...thThemeStyle,
                                         ...style?.header,
@@ -168,6 +169,7 @@ const JsTable: FC<JsTableProps> = ({
                                             position: 'sticky',
                                             top: 0,
                                             zIndex: '1',
+                                            background: style?.header?.background ?? 'white',
                                             ...thThemeStyle,
                                             ...style?.header,
                                         }}
