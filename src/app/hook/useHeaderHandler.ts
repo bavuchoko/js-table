@@ -2,12 +2,12 @@ import { useMemo } from "react";
 import { Header } from "../type/Types";
 
 export function useHeaderHandler(
-    header: Header[],
+    header?: Header[],
     order?: string[],
     hidden?: string[]
 ): Header[] {
     return useMemo(() => {
-        const filtered = header.filter(
+        const filtered = (header ?? []).filter(
             h => h.key !== "checker" && h.key !== "no"
         );
 

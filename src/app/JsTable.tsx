@@ -33,7 +33,7 @@ const JsTable: FC<JsTableProps> = ({
                                    }) => {
 
 
-    const [order, setOrder] = useState<string[]>(setting?.order ?? header.filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
+    const [order, setOrder] = useState<string[]>(setting?.order ?? (header ?? []).filter(h => h.key !== 'no' && h.key !== 'checker').map(h => h.key));
     const { checked, handleCheckboxClick, handleHeaderCheckboxClick, isThisPageAllChecked, getNestedValue } = useDataHandler(data);
 
     // hook : 숨김처리
@@ -109,16 +109,16 @@ const JsTable: FC<JsTableProps> = ({
                     showColumn={showColumn}
                 /> }
 
-            {data.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
+            {data && data?.length > 0 && ( page && usePagination ) && usePagination=== 'top' &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination} toggleSetting={useSetting ? togglePopup : undefined}/>
             }
             <div className={`no-scroll`} style={{ height: heightStyle, overflowY: 'auto' }}>
 
-                {data?.length > 0 ?
+                {data && data.length > 0 ?
                     <table style={ {borderCollapse: 'collapse', background:'white', ...style?.body} }>
                         <thead>
                         <tr >
-                            {header.some(h => h.key === 'checker') &&
+                            {header && header.some(h => h.key === 'checker') &&
                                 <th
                                     style={{
 
@@ -137,7 +137,7 @@ const JsTable: FC<JsTableProps> = ({
                                     />
                                 </th>
                             }
-                            {header.some(h => h.key === 'no') &&
+                            {header && header.some(h => h.key === 'no') &&
                                 <th
                                     style={{
                                         borderBottom: '1px solid',
@@ -254,7 +254,7 @@ const JsTable: FC<JsTableProps> = ({
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
-                                {header.some(h => h.key === 'checker') &&
+                                {header && header?.some(h => h.key === 'checker') &&
                                     <td
                                         style={{
                                             textAlign:'center',
@@ -276,7 +276,7 @@ const JsTable: FC<JsTableProps> = ({
                                         />
                                     </td>
                                 }
-                                {header.some(h => h.key === 'no') &&
+                                {header && header?.some(h => h.key === 'no') &&
                                     <td
                                         style={{
                                             borderBottom: '1px solid',
@@ -328,8 +328,8 @@ const JsTable: FC<JsTableProps> = ({
                         </tbody>
                     </table>
                     :
-                    <div className="flex justify-center items-center h-full">
-                        <Empty style={{width:'100px', }} />
+                    <div className="flex justify-center items-center h-full ">
+                        <Empty style={{width:'100px' }} />
                         <div style={{marginLeft: '15px'}}>
                             <p style={{fontSize: '18px'}} > Sorry !!</p>
                             <p  style={{fontSize: '13px'}}>There's nothing here.</p>
@@ -338,7 +338,7 @@ const JsTable: FC<JsTableProps> = ({
                 }
             </div>
 
-            {data.length > 0 && (page && usePagination) && (usePagination === 'bottom' || usePagination === true) &&
+            {data && data.length > 0 && (page && usePagination) && (usePagination === 'bottom' || usePagination === true) &&
                 <Pagination page={page} onPageChange={onPageChange} direction={usePagination} toggleSetting={useSetting ? togglePopup : undefined}/>
             }
         </div>

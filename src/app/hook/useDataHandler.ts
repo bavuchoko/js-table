@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-export function useDataHandler(data: any[]) {
+export function useDataHandler(data? : any[]) {
     const [checked, setChecked] = useState<number[]>([]);
 
     const handleCheckboxClick = useCallback((value: number) => {
@@ -10,8 +10,8 @@ export function useDataHandler(data: any[]) {
     }, []);
 
     const handleHeaderCheckboxClick = useCallback(() => {
-        const allChecked = data.every(item => checked.includes(item.id));
-        const currentPageIds = data.map(item => item.id);
+        const currentPageIds = (data ?? []).map(item => item.id);
+        const allChecked = (data ?? []).every(item => checked.includes(item.id));
 
         if (!allChecked) {
             setChecked(prev => Array.from(new Set([...prev, ...currentPageIds])));
@@ -21,7 +21,7 @@ export function useDataHandler(data: any[]) {
     }, [checked, data]);
 
     const isThisPageAllChecked = useCallback(() => {
-        return data.every(item => checked.includes(item.id));
+        return  (data ?? []).every(item => checked.includes(item.id));
     }, [checked, data]);
 
 

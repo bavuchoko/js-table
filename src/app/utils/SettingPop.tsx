@@ -13,7 +13,7 @@ export type ToggleProp ={
 type SettingPopProps = {
     closePopup: () => void;
     toggleProp: ToggleProp;
-    rowHeader: Header[];
+    rowHeader?: Header[];
     elements?: string[];
     showColumn?: (key: string) => void;
 };

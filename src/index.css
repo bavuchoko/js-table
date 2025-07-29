@@ -133,3 +133,9 @@ p{
 *, *::before, *::after {
   box-sizing: border-box;
 }
+.justify-center{
+  justify-content: center;
+}
+.item-center{
+  align-items: center;
+}
