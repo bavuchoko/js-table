@@ -51,9 +51,9 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                 lineHeight:'20px',
             }}
             >
-            <div className={`flex `}>
+            <div style={{display:'flex'}}>
                 <Lefter onClick={()=>handleButtonClick( inputValue - 1)} />
-                <div className={`flex`} style={{marginLeft:'10px', marginRight:'15px'}} >
+                <div style={{display:'flex', marginLeft:'10px', marginRight:'15px'}} >
                     <input type={'number'}
                            style={{
                                border:'1px solid',
@@ -76,8 +76,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                            }}
                            onBlur={handleInputBlur}
                     />
-                    <p style={{fontSize:'13px', height:'20px'}}
-                        className={`no-select`}>/ {page.totalPages}</p>
+                    <p style={{userSelect:'none',  fontSize:'13px', height:'20px'}} >/ {page.totalPages}</p>
                 </div>
 
                 <Righter  onClick={()=>handleButtonClick( inputValue + 1)} />
@@ -86,8 +85,7 @@ const Pagination: FC<PaginationProps > = ({ page, onPageChange, direction, toggl
                 <SettingIcon style={{width:"20px", height:"20px", marginLeft:"10px", cursor:"pointer"}} onClick={toggleSetting}/>
                 }
 
-                <div style={{fontSize:'13px', marginLeft:'auto', marginRight:'30px'}}
-                    className={`flex no-select`}>
+                <div style={{userSelect:'none', display:'flex', fontSize:'13px', marginLeft:'auto', marginRight:'30px'}} >
                     <p>total</p> <p style={{marginLeft:'5px', marginRight:'5px', borderLeft:'1px solid', borderColor:'var(--deepGray)'	}} ></p> <p>{page.totalElements}</p>
                 </div>
 

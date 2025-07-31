@@ -252,7 +252,7 @@ const JsTable: FC<JsTableProps> = ({
                                                 ? '#ececec'
                                                 : '',
                                 }}
-                                className={`hover-table-row ${clicked===item.id && 'bg-clicked'}`} onClick={() =>{
+                                className={`hover-table-row ${clicked===item.id && 'jt-bg-clicked'}`} onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
@@ -330,7 +330,7 @@ const JsTable: FC<JsTableProps> = ({
                         </tbody>
                     </table>
                     :
-                    <div className="flex justify-center items-center h-full ">
+                    <div style={{justifyContent:'center', height:'100%', display:'flex', alignItems:"center"}}>
                         <Empty style={{width:'100px' }} />
                         <div style={{marginLeft: '15px'}}>
                             <p style={{fontSize: '18px'}} > Sorry !!</p>

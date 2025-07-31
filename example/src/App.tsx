@@ -33,11 +33,9 @@ function App() {
     ]
 
     return (
-        <div className={' w-full'} style={{height:'20rem'}}>
+        <div style={{width:'100%', height:'20rem'}}>
             <h1>테스트 페이지awd</h1>
             <JsTable
-                header={header}
-                data={data}
                 page={{
                     size:20,
                     currentPage:0,
@@ -47,9 +45,10 @@ function App() {
                     desc:'asc'
                 }}
                 background={'dot'}
-                style={{ header:{height:"35px",}, body:{height:'35px'}}}
-                theme={'linear'}
+
+                theme={"linear"}
                 useSetting={true}
+                style={{header:{height:"35px", lineHeight:"35px"},body:{height:"35px"}}}
                 usePagination
                 onHeaderMove={(v:any) =>{console.log('order:', v)}}
                 onHiddenUpdate={(v:any) =>{console.log('hidden:', v)}}

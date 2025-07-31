@@ -3,19 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 table th,
 table td {
   padding: 0;
@@ -38,15 +25,6 @@ p{
   --glass:rgba(224, 224, 224, 0.42);
   --linearThemeColor: rgba(77, 149, 231, 0.66)
 }
-.relative{
-  position: relative;
-}
-.absolute{
-  position: absolute;
-}
-.inline-block{
-  display: inline-block;
-}
 .cursor-pointer{
   cursor: pointer;
 }
@@ -57,85 +35,17 @@ p{
 .no-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
 }
-.w-300{
-  width: 300px;
-}
-.w-1200{
-  width: 1200px;
-}
 .hover-table-row:hover{
   background: var(--th);
 }
-.flex{
-  display: flex;
-}
-.h-200{
-  height: 200px;
-}
-.h-500{
-  height: 500px;
-}
-.line-h-25{
-  line-height: 25px;
-}
-.line-h-20{
-  line-height: 20px;
-}
-/* 강한 그림자 */
-.shadow-strong {
-  box-shadow: -2px 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-/* 왼쪽 둥근 모서리 */
-.rounded-radius-l-tb {
-  border-radius: 5px 0 0 5px;
-}
-
-
-
-/* 도트 배경 */
-.bg-dots {
-  background-image: var(--dot);
-}
-.bg-size-dot {
-  background-size: 10px 10px;
-}
-
-.bg-clicked{
+.jt-bg-clicked{
   background-color: rgba(209, 234, 255, 0.73) !important;
 }
 
-.text-clicked {
-  color: rgba(209, 234, 255, 0.73);
-}
-
-.w-full {
-  width: 100%;
-}
-.h-full {
-  height: 100%;
-}
-.no-select {
-  user-select: none;
-}
 .active-scale-90:active{
   scale: 90%;
 }
-.no-focus-style:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.no-focus-style:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
 *, *::before, *::after {
   box-sizing: border-box;
-}
-.justify-center{
-  justify-content: center;
-}
-.item-center{
-  align-items: center;
 }
