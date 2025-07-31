@@ -7,6 +7,7 @@ type Theme = 'table' | 'linear';
 export type JsTableProps ={
     header?: Header[];
     setting?: Setting;
+    useChecker?: boolean;
     data?: any[]
     page?: Page;
     usePagination?:boolean | PaginationPosition;

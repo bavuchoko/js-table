@@ -16,6 +16,7 @@ import '../index.css';
 const JsTable: FC<JsTableProps> = ({
                                        header,
                                        setting,
+                                       useChecker = true,
                                        data,
                                        page = undefined,
                                        usePagination = undefined,
@@ -91,11 +92,10 @@ const JsTable: FC<JsTableProps> = ({
             style={{
                 padding:0,
                 position:'relative',
-                border:'1px solid',
+                border: theme ==='linear' ? 'none' : '1px solid var(--deepGray)',
                 display:'inline-block',
                 width:'100%',
                 height:'100%',
-                borderColor:'var(--deepGray)'	,
                 ...backgroundStyle
             }}
         >
@@ -118,7 +118,7 @@ const JsTable: FC<JsTableProps> = ({
                     <table style={ {borderCollapse: 'collapse', background:'white', ...style?.body} }>
                         <thead>
                         <tr >
-                            {header && header.some(h => h.key === 'checker') &&
+                            {useChecker && header && header.some(h => h.key === 'checker') &&
                                 <th
                                     style={{
                                         width: '40px',
@@ -128,7 +128,9 @@ const JsTable: FC<JsTableProps> = ({
                                         zIndex: "1",
                                         background: style?.header?.background ?? 'white',
                                         ...thThemeStyle,
-                                        ...style?.header}}
+                                        ...style?.header,
+                                        textIndent: '0px !important'
+                                    }}
                                     onChange={handleHeaderCheckboxClick}
                                 >
                                     <input type="checkbox"
@@ -140,7 +142,6 @@ const JsTable: FC<JsTableProps> = ({
                             {header && header.some(h => h.key === 'no') &&
                                 <th
                                     style={{
-                                        borderBottom: '1px solid',
                                         width: '50px',
                                         fontSize: '12px',
                                         textAlign: 'center',
@@ -148,7 +149,6 @@ const JsTable: FC<JsTableProps> = ({
                                         top: 0,
                                         zIndex: "1",
                                         background: style?.header?.background ?? 'white',
-                                        borderColor: 'var(--deepGray)'	,
                                         ...thThemeStyle,
                                         ...style?.header,
                                     }}
@@ -162,7 +162,6 @@ const JsTable: FC<JsTableProps> = ({
                                     <th
                                         key={`h_` + i}
                                         style={{
-                                            borderBottom: '1px solid',
                                             borderColor: 'var(--deepGray)'	,
                                             width: `${columnWidths[i]}px`,
                                             fontSize: '12px',
@@ -184,7 +183,7 @@ const JsTable: FC<JsTableProps> = ({
                                                 width: '100%',
                                                 height: '100%',
                                                 textAlign: 'left',
-                                                padding: '0 10px',
+                                                textIndent:'10px',
                                                 boxSizing: 'border-box',
                                             }}
 
@@ -193,7 +192,7 @@ const JsTable: FC<JsTableProps> = ({
                                             <div
                                                 style={{
                                                     display:'inline-block',
-                                                    width:'calc(100% - 5px)',
+                                                    width:'calc(100% - 15px)',
                                                 }}
                                                 draggable={draggable}
                                                 onDragStart={(e) => handleDragStart(e, i)}
@@ -222,7 +221,7 @@ const JsTable: FC<JsTableProps> = ({
                                                     <div
                                                         className="cursor-col-resize resize-handle"
                                                         style={{
-                                                            width: '4px',
+                                                            width: '14px',
                                                             height: '100%',
                                                             color: 'gray',
                                                             cursor: 'col-resize',
@@ -244,24 +243,16 @@ const JsTable: FC<JsTableProps> = ({
                         <tbody>
                         {(data.map((item, rowIndex) => (
                             <tr key={"r_" + rowIndex}
-                                style={{
-                                    background:
-                                        clicked === item.id
-                                            ? 'rgba(209, 234, 255, 0.73)'
-                                            : hoveredRow === item.id
-                                                ? '#ececec'
-                                                : '',
-                                }}
-                                className={`hover-table-row ${clicked===item.id && 'jt-bg-clicked'}`} onClick={() =>{
+                                // className={`hover-table-row ${clicked===item.id && 'jt-bg-clicked'}`}
+                                className={`hover-table-row ${clicked===item.id && 'jt-bg-clicked'}`}
+                                onClick={() =>{
                                 onRowClick?.(item.id)
                                 setClicked(item.id)
                             } }>
-                                {header && header?.some(h => h.key === 'checker') &&
+                                {useChecker && header && header?.some(h => h.key === 'checker') &&
                                     <td
                                         style={{
                                             textAlign:'center',
-                                            borderBottom:'1px solid',
-                                            borderColor:'var(--deepGray)',
                                             ...tdThemeStyle,
                                             ...style?.body,
                                         }}
@@ -281,10 +272,8 @@ const JsTable: FC<JsTableProps> = ({
                                 {header && header?.some(h => h.key === 'no') &&
                                     <td
                                         style={{
-                                            borderBottom: '1px solid',
                                             width: '50px',
                                             textAlign: 'center',
-                                            borderColor:'var(--deepGray)'	,
                                             fontSize: '13px',
                                             ...tdThemeStyle,
                                             ...style?.body,
@@ -301,8 +290,6 @@ const JsTable: FC<JsTableProps> = ({
                                     <td
                                         key={`c_` + i}
                                         style={{
-                                            borderBottom: '1px solid',
-                                            borderColor:'var(--deepGray)',
                                             textIndent:'10px',
                                             cursor:'pointer',
                                             position:'relative',

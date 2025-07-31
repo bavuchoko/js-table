@@ -16,25 +16,29 @@ export function useCustomStyle(usePagination: boolean | 'top' | 'bottom' | undef
 
     const tdThemeStyleMap: Record<string, React.CSSProperties> = {
         linear: {
-            borderColor: 'var(--lightGray)'	,
+            height:'40px',
+            lineHeight : '40px',
         },
         table:{
-            borderColor: 'var(--deepGray)'	,
-            borderRight:'1px solid',
+            borderRight:'1px solid var(--deepGray)',
+            borderBottom: '1px solid var(--deepGray)',
         }
     };
 
 
     const thThemeStyleMap: Record<string, React.CSSProperties> = {
         linear: {
-            borderBottom: '2px solid',
-            borderColor: 'var(--linearThemeColor)'	,
+            fontWeight : 'normal',
+            height:'40px',
+            lineHeight : '40px',
+            fontSize : '11px',
+            color : 'gray',
+            textIndent : '10px',
         },
         table:{
-            borderBottom: '1px solid',
-            borderColor: 'var(--deepGray)'	,
+            borderBottom: '1px solid var(--deepGray)',
             background: 'var(--th)',
-            borderRight:'1px solid',
+            borderRight:'1px solid var(--deepGray)',
         }
     };
 
